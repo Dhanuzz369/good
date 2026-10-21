@@ -3,13 +3,19 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const load = (file) => import(`${pathToFileURL(resolve(file)).href}?t=${Date.now()}`);
+// Load a render or data module. In dev, Vite's SSR loader tracks every file in
+// the import graph and reloads it when it changes; a plain Node import would
+// cache nested modules (e.g. pages.js -> sections.js) and serve stale code.
+// A production build runs once, so a plain import is enough there.
+const loaderFor = (ctx) => (file) =>
+  ctx.server ? ctx.server.ssrLoadModule(`/${file}`) : import(pathToFileURL(resolve(file)).href);
 
 // Renders the product data into index.html at build (and dev) time.
 // Placeholders look like <!-- @section name -->.
 const renderSections = () => ({
   name: 'goodbiz-render-sections',
   async transformIndexHtml(htmlSource, ctx) {
+    const load = loaderFor(ctx);
     const s = await load('src/render/sections.js');
     const pages = await load('src/render/pages.js');
     const { images } = await load('src/data/images.js');
