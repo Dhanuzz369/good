@@ -1,0 +1,106 @@
+// Editorial content that is not product data.
+
+export const process = [
+  {
+    verb: 'Enquire',
+    icon: 'doc',
+    text: 'Tell us the product, the quantity and the destination. The forms on this page are enough to start.',
+    image: 'byadgi',
+    position: '50% 40%',
+  },
+  {
+    verb: 'Specify',
+    icon: 'list',
+    text: 'We confirm grade, specification, packaging and the documents you need before anyone discusses price.',
+    image: 'turmeric',
+    position: '50% 50%',
+  },
+  {
+    verb: 'Match',
+    icon: 'match',
+    text: 'We approach Indian manufacturers, growers and processors able to meet that specification.',
+    image: 'loom',
+    position: '40% 50%',
+  },
+  {
+    verb: 'Quote',
+    icon: 'shield',
+    text: 'You receive a written quotation with terms, subject to confirmed availability and destination rules.',
+    image: 'drums',
+    position: '50% 60%',
+  },
+  {
+    verb: 'Ship',
+    icon: 'ship',
+    text: 'We coordinate packing, export documentation and handover to your forwarder or nominated line.',
+    image: 'jnpt',
+    position: '30% 50%',
+  },
+];
+
+export const reasons = [
+  {
+    phrase: 'Five sectors, one desk',
+    text: 'Transformers, chilli, floor cleaner, fabric and solvents through one contact and one enquiry.',
+    field: 'navy',
+    icon: 'globe',
+    image: 'madras1996',
+  },
+  {
+    phrase: 'Specification before price',
+    text: 'A quotation is only useful against an agreed grade, pack and document set. We settle those first.',
+    field: 'brass',
+    icon: 'list',
+    image: 'turmeric',
+  },
+  {
+    phrase: 'Destination rules first',
+    text: 'Restricted substances, food-safety rules and export policy are checked for your country before we quote.',
+    field: 'teal',
+    icon: 'shield',
+    image: 'controlPanel',
+  },
+  {
+    phrase: 'Real documents only',
+    text: 'SDS, TDS and COA are shared when the producer issues them for your lot. We never write our own.',
+    field: 'petrol',
+    icon: 'doc',
+    image: 'copperSulphate',
+  },
+];
+
+// Target markets. TODO: confirm with GoodBiz Global which markets to name.
+export const markets = [
+  'the United Arab Emirates', 'Saudi Arabia', 'Oman', 'Qatar', 'Kuwait', 'Bahrain',
+  'Kenya', 'Tanzania', 'Nigeria', 'South Africa',
+  'Sri Lanka', 'Bangladesh', 'Nepal', 'Malaysia', 'Vietnam', 'Indonesia',
+  'the United Kingdom', 'the Netherlands', 'Germany', 'the United States', 'Australia',
+];
+
+export const textileSpec = [
+  ['Fibre', 'Cotton, viscose, polyester, blends, or the composition you need'],
+  ['Construction', 'Woven or knitted, with weave or knit structure'],
+  ['Weight', 'GSM, or ounces per square yard'],
+  ['Width', 'Usable width in centimetres or inches'],
+  ['Finish', 'Greige, bleached, dyed or printed, and any special finish'],
+  ['Colour', 'Shade reference, lab dip or swatch'],
+  ['Quantity', 'Metres or kilograms per colour, and delivery schedule'],
+  ['End use', 'Garments, home textiles, industrial or other'],
+];
+
+export const units = ['kg', 'Metric tonnes (MT)', 'Litres', 'Kilolitres (KL)', 'Pieces / units', 'Metres', '20 ft containers', '40 ft containers'];
+
+export const packagingOptions = [
+  'No preference', 'Drums', 'IBC totes', 'ISO tank', 'Flexitank', 'Bags', 'Jumbo bags', 'Other (describe below)',
+];
+
+// Photo gallery: the trade around GoodBiz Global (found, credited pictures).
+export const gallery = [
+  { image: 'chilliDrying', caption: 'Chillies drying in the sun', span: 'wide' },
+  { image: 'jnpt', caption: 'Container cranes, JNPT, Navi Mumbai' },
+  { image: 'mill1941', caption: 'A Bombay textile mill, early 1940s' },
+  { image: 'jaggery', caption: 'Jaggery at market' },
+  { image: 'controlPanel', caption: 'Control panel under test' },
+  { image: 'copperSulphate', caption: 'Copper sulphate crystals' },
+  { image: 'madras1996', caption: 'Port of Madras (Chennai), 1996' },
+];

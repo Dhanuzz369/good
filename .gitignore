@@ -1,0 +1,29 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Local QA output (screenshots, probes) and tool caches
+.qa/
+.taste-skill/
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/build/
+
+# OS / editor
+.DS_Store
+*.log
+
+# Source images that the site does not use (rejected candidates)
+/source-images/chennai-terminal.jpg
+/source-images/cotton-finishing-1889.jpg
+/source-images/detergents.jpg
+/source-images/fabric-bolt.jpg
+/source-images/port.webp
+/source-images/sea-loop-poster.jpg
+/source-images/sea-loop.webm
+/source-images/ship-loop-poster.jpg
+/source-images/ship-loop.webm
+/source-images/substation.jpg
+/source-images/tanker.jpg
+/source-images/weaving-1917.jpg
+.impeccable/hook.cache.json

@@ -1,0 +1,7 @@
+.legal { max-width: 70ch; margin: 0 auto; padding: 48px var(--gutter) 120px; }
+.legal__back { display: inline-block; margin-bottom: 72px; font-weight: 600; }
+.legal h1 { font-family: var(--font-display); font-size: var(--fs-h2); line-height: 1.05; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 24px; }
+.legal h2 { font-family: var(--font-display); font-size: var(--fs-h3); line-height: 1.15; margin: 48px 0 12px; }
+.legal p, .legal li { margin-bottom: 1em; }
+.legal ul { list-style: disc; padding-left: 1.25em; }
+.legal__draft { background: var(--mist); border-radius: var(--radius-sm); padding: 16px 20px; font-weight: 500; }

@@ -1,0 +1,75 @@
+/* Design tokens. Every colour, size, radius, shadow and duration comes from here.
+ *
+ * World: a bright B2B sourcing desk after the user-pinned reference
+ * (ofbusiness.com layout and look), recoloured to GoodBiz teal, blue and
+ * navy. White and cool mist grounds; one teal-to-blue gradient owns the
+ * header, facts band, process panel, quote panel and footer.
+ *
+ * Type: Cabinet Grotesk for headlines (a confident grotesk with sharp
+ * terminals, set in two solid tones), Switzer for running text, tables and
+ * forms, where buyers scan product names and units.
+ */
+:root {
+  --white: #ffffff;
+  --mist: #f3f7f9;
+  --line: #d5e0e6;
+  --line-strong: #9fb2be;
+  --ink: #0b1d2e;
+  --ink-2: #2e4356;
+  --muted: #526677;
+
+  --teal: #0a7f72;
+  --teal-600: #086a5f;
+  --teal-50: #e4f3f0;
+  --blue: #1957a6;
+  --blue-600: #134687;
+  --blue-50: #e7eff9;
+  --navy: #0d2a4a;
+  --on-brand: #ffffff;
+  --on-brand-2: #e2f0f3;
+
+  --grad: linear-gradient(100deg, #086a5f 0%, #0f5f8f 55%, #1957a6 100%);
+  --grad-deep: linear-gradient(115deg, #075f56 0%, #0f4f80 60%, #12407f 100%);
+
+  --error: #b42318;
+  --error-bg: #fef3f2;
+  --success: #067647;
+
+  --font-display: 'Cabinet Grotesk', 'Switzer', 'Helvetica Neue', Arial, sans-serif;
+  --font-text: 'Switzer', 'Helvetica Neue', Arial, system-ui, sans-serif;
+
+  --fs-small: 0.875rem;
+  --fs-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --fs-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --fs-h3: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+  --fs-h2: clamp(1.875rem, 1.3rem + 2.4vw, 3rem);
+  --fs-display: clamp(2.375rem, 1.4rem + 4.2vw, 4.5rem);
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --pill: 999px;
+
+  --shadow-1: 0 1px 2px rgb(11 29 46 / 0.06), 0 4px 14px rgb(11 29 46 / 0.06);
+  --shadow-2: 0 2px 6px rgb(11 29 46 / 0.06), 0 14px 34px rgb(11 29 46 / 0.12);
+
+  --gutter: clamp(16px, 3vw, 40px);
+  --max: 1280px;
+  --section-gap: clamp(64px, 8vw, 112px);
+  --bar-h: 72px;
+  --ticker-h: 40px;
+
+  /* Motion (see motion.css). Strong ease-out for anything entering or
+     responding; ease-in-out for on-screen movement; drawer curve for sheets. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 140ms;
+  --dur-fast: 160ms;
+  --dur: 200ms;
+  --dur-exit: 150ms;
+  --dur-slow: 500ms;
+
+  --warn: #7a4f00;
+  --warn-bg: #fff4e0;
+}

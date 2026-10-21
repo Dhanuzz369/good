@@ -1,0 +1,186 @@
+/* Motion system ------------------------------------------------------------
+ *
+ * Rules (tokens in tokens.css):
+ *   Press feedback      140ms  --ease-out   scale(0.97), every pressable control
+ *   Hover / colour      160ms  ease         gated to (hover: hover) and (pointer: fine)
+ *   Dropdowns, panels   200ms  --ease-out   in; out at 150ms (exits are faster)
+ *   Sheets (mobile bar) 280ms  --ease-drawer
+ *   Entrances           500ms  --ease-out   hero choreography and scroll reveals only
+ *   Stagger             60ms between siblings, capped at 240ms
+ * Only transform and opacity move. Nothing enters from scale(0); no ease-in.
+ * Not animated on purpose: chemical filtering and search typing (frequent, the
+ * user is reading data), keyboard tab switches, result-list updates.
+ * Reduced motion keeps opacity and colour, drops travel.
+ */
+
+/* Mobile-native baseline ------------------------------------------------- */
+html { -webkit-tap-highlight-color: transparent; }
+a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipulation; }
+.btn, .chip, .tab, .add, .cat__more, .thumb__action, .round-btn, .hdr__link, .menu-toggle, .ads__dot, .ads__pause, .mbar {
+  user-select: none;
+  -webkit-user-select: none;
+}
+.hdr__bar { padding-left: max(var(--gutter), env(safe-area-inset-left), calc((100% - var(--max)) / 2)); padding-right: max(var(--gutter), env(safe-area-inset-right), calc((100% - var(--max)) / 2)); }
+.ftr__bottom { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+
+/* Press feedback --------------------------------------------------------- */
+.btn, .chip, .tab, .add, .cat__more, .thumb__action, .round-btn, .ads__dot, .ads__pause, .mbar__go, .enquiry-list__remove {
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+.btn:active, .chip:active, .tab:active, .add:active, .cat__more:active, .thumb__action:active,
+.round-btn:active, .ads__pause:active, .mbar__go:active, .enquiry-list__remove:active { transform: scale(0.97); }
+.action-card, .gate, .brand-tile { transition: transform var(--dur) var(--ease-out); }
+.action-card:active, .gate:active, .brand-tile:active { transform: scale(0.985); }
+
+/* Hover travel: mouse and trackpad only ---------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .action-card:hover { transform: translateY(-3px); }
+  .gate:hover, .brand-tile:hover { transform: translateY(-3px); }
+  .action-card__go, .gate__go .icon, .cat__page .icon, .ad__link .icon { transition: transform var(--dur) var(--ease-out); }
+  .action-card:hover .action-card__go, .gate:hover .gate__go .icon, .cat__page:hover .icon, .ad__link:hover .icon { transform: translateX(3px); }
+  .thumb__media img, .gate__img, .brand-tile__img, .gallery__grid img, .cat__tile img { transition: transform var(--dur-slow) var(--ease-out); }
+  .thumb:hover .thumb__media img, .gate:hover .gate__img, .brand-tile:hover .brand-tile__img, .gallery__grid figure:hover img, .cat:hover .cat__tile img { transform: scale(1.04); }
+}
+/* Header ----------------------------------------------------------------- */
+.hdr::after {
+  content: ''; position: absolute; inset: 100% 0 auto 0; height: 14px; pointer-events: none;
+  background: linear-gradient(rgb(11 29 46 / 0.14), transparent);
+  opacity: 0; transition: opacity var(--dur) var(--ease-out);
+}
+.hdr.is-stuck::after { opacity: 1; }
+
+/* Categories dropdown: grows out of its trigger, exits faster. */
+@media (min-width: 1081px) {
+  .mega {
+    transform-origin: top center;
+    transition:
+      opacity var(--dur-exit) var(--ease-out),
+      transform var(--dur-exit) var(--ease-out),
+      visibility 0s linear var(--dur-exit);
+  }
+  .mega[data-open='false'] { opacity: 0; transform: translateY(-4px) scale(0.97); visibility: hidden; pointer-events: none; }
+  .mega[data-open='true'] {
+    opacity: 1; transform: none; visibility: visible;
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility 0s;
+  }
+}
+@media (max-width: 1080px) {
+  .mega[data-open='false'] { display: none; }
+
+  /* Phone menu: interruptible transition, never display-toggled, so rapid
+     open/close retargets from where it is instead of restarting. */
+  .hdr__nav {
+    display: block; transform-origin: top center;
+    opacity: 0; transform: translateY(-8px); visibility: hidden; pointer-events: none;
+    transition:
+      opacity var(--dur-exit) var(--ease-out),
+      transform var(--dur-exit) var(--ease-out),
+      visibility 0s linear var(--dur-exit);
+  }
+  .hdr__nav.is-open {
+    opacity: 1; transform: none; visibility: visible; pointer-events: auto;
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility 0s;
+  }
+}
+
+/* Search results: appear under the field; their content updates instantly. */
+.search__results {
+  transform-origin: top center;
+  transition:
+    opacity 120ms var(--ease-out),
+    transform 120ms var(--ease-out),
+    visibility 0s linear 120ms;
+}
+.search__results[data-open='false'] { opacity: 0; transform: translateY(-4px); visibility: hidden; pointer-events: none; }
+.search__results[data-open='true'] {
+  opacity: 1; transform: none; visibility: visible;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), visibility 0s;
+}
+
+/* Category "View all": an accordion, the one sanctioned layout animation. */
+.js .cat__all { transition: grid-template-rows 180ms var(--ease-out); }
+.js .cat__all.is-open { transition-duration: 260ms; }
+.js .cat__all-inner { opacity: 0; transition: opacity var(--dur-exit) var(--ease-out); }
+.js .cat__all.is-open .cat__all-inner { opacity: 1; transition: opacity var(--dur) var(--ease-out) 60ms; }
+
+/* Process tabs: a click gets a short crossfade; keyboard switches are instant. */
+.process__panel.is-entering { animation: fade-in 180ms var(--ease-out); }
+@keyframes fade-in { from { opacity: 0; } }
+
+/* Enquiry list: a new line settles in; removal is instant. */
+.enquiry-list__item {
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  @starting-style { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Mobile enquiry bar: a sheet from the bottom edge, leaving the same way. */
+@media (max-width: 760px) {
+  .mbar {
+    transition:
+      transform 180ms var(--ease-out),
+      opacity 180ms var(--ease-out),
+      visibility 0s linear 180ms;
+  }
+  .mbar[data-open='false'] { transform: translateY(calc(100% + 24px)); opacity: 0; visibility: hidden; pointer-events: none; }
+  .mbar[data-open='true'] {
+    transform: none; opacity: 1; visibility: visible;
+    transition: transform 280ms var(--ease-drawer), opacity 280ms var(--ease-drawer), visibility 0s;
+  }
+}
+
+/* Form feedback ---------------------------------------------------------- */
+.field__error, .form__status:not(:empty) { animation: message-in var(--dur) var(--ease-out); }
+@keyframes message-in { from { opacity: 0; transform: translateY(-3px); } }
+/* "Request pricing" points at the form: a ring fades, drawn on a pseudo-element
+   so only opacity animates (the old version repainted box-shadow for 1s). */
+.chem-form { position: relative; }
+.chem-form::after {
+  content: ''; position: absolute; inset: -6px; border-radius: calc(var(--radius) + 6px); pointer-events: none;
+  box-shadow: 0 0 0 4px rgb(10 127 114 / 0.4); opacity: 0;
+}
+.chem-form.is-flash::after { animation: ring 900ms var(--ease-out); }
+@keyframes ring { 0%, 30% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Hero: one choreographed entrance, first load only. ----------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__title, .hero__lead, .hero .search, .hero .chips, .hero__cards {
+    animation: enter var(--dur-slow) var(--ease-out) both;
+  }
+  .hero__lead { animation-delay: 70ms; }
+  .hero .search { animation-delay: 140ms; }
+  .hero .chips { animation-delay: 210ms; }
+  .hero__cards { animation-delay: 280ms; }
+  .hero__media img { animation: settle 1100ms var(--ease-out) both; }
+}
+@keyframes enter { from { opacity: 0; transform: translateY(14px); } }
+@keyframes settle { from { opacity: 0; transform: scale(1.03); } }
+
+/* Scroll reveals: category rows and brand cards only. -------------------- */
+.reveal-armed [data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--stagger, 0ms);
+}
+.reveal-armed [data-reveal].is-in { opacity: 1; transform: none; }
+
+
+/* Reduced motion: fewer, gentler. Opacity and colour stay; travel goes. ---- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-armed [data-reveal] { transform: none; transition: opacity 200ms linear; }
+  .hdr__nav, .hdr__nav.is-open, .mega[data-open], .search__results[data-open], .mbar[data-open] { transform: none !important; }
+  .field__error, .form__status:not(:empty) { animation-name: fade-in; }
+  .enquiry-list__item { @starting-style { transform: none; } }
+  .chem-form.is-flash::after { animation-duration: 600ms; }
+  .ads__track { scroll-behavior: auto; }
+}
+
+/* Touch targets: 44px wherever the primary pointer is a finger. */
+@media (pointer: coarse) {
+  .product-index__col li a, .gateway__jump a, .ftr__col a, .ftr__bottom a, .crumbs a, .site-footer__legal a { min-height: 44px; display: inline-flex; align-items: center; }
+  .brand { min-height: 44px; align-content: center; }
+}
