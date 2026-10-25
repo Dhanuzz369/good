@@ -157,15 +157,15 @@ components:
 
 **Creative North Star: "The Bright Sourcing Desk"**
 
-A working trade counter, not a brochure. The page is white and cool mist, lit by one teal-to-blue gradient that owns the brand fields: header bar, facts band, process panel, quote panel and footer. Between those fields, content sits on white rounded rows with soft shadows: category rows, a chemical table, forms. Search and enquiry controls are the heroes. Persuasion comes after them.
+A working trade counter, not a brochure. The page is white and cool mist, lit by one teal-to-blue gradient on the header bar only. Deep panels (process, footer, range CTA) are flat navy; the facts strip is mist. Content sits on white, with hairline-bordered cards: range cards, a chemical table, forms. Search and enquiry controls are the heroes. Persuasion comes after them.
 
 The density is high, like a marketplace: product names, origins and actions packed into scannable rows. The layout follows the user-pinned reference (ofbusiness.com), recoloured to GoodBiz teal, blue and navy, without its logo, wording or photos. Real, credited photographs of the trade fill every category tile, the hero and the gallery. Where no honest photograph exists, a sector-tinted line icon stands in. A photo is never faked.
 
 Headlines are set in Cabinet Grotesk in two solid tones: navy or ink for the statement and teal for the second phrase. Running text, tables and forms use Switzer with tabular numerals. Every interactive surface is pill-shaped or softly rounded, and every action has a 44px floor.
 
 **Key Characteristics:**
-- White and mist grounds. One teal-to-blue gradient for brand fields.
-- Two-tone grotesk headlines (navy or ink plus teal). No gradient text.
+- White and mist grounds. The teal-to-blue gradient belongs to the header bar alone.
+- One-tone grotesk section headlines in ink. Only the hero headline carries a teal phrase. No gradient text.
 - Pill controls: buttons, chips, tabs, search, add toggles.
 - 14px rounded cards and 22px rows with soft, diffuse navy-tinted shadows.
 - Real photography in every row tile. Line icons on a 24px grid as the only fallback.
@@ -199,11 +199,11 @@ A cool, bright palette: a white and mist base, a teal and blue pair, and deep na
 - **On-Brand / On-Brand Soft** (on-brand, on-brand-2): text on the gradient fields. The soft tone is for supporting lines.
 
 ### Gradients (sidecar)
-- **Brand Field** (`--grad`, 100deg, teal-600 to #0f5f8f to blue): header bar, facts band, quote panel, primary action card.
-- **Deep Field** (`--grad-deep`, 115deg, darker stops): process panel and footer.
+- **Brand Field** (`--grad`, 100deg, teal-600 to #0f5f8f to blue): the header bar only.
+- **Deep Field** (`--navy`, flat): process panel, range CTA and footer. The primary action card is flat teal-600.
 
 ### Named Rules
-**The One Gradient Rule.** The teal-to-blue gradient is a field, never a fill for text, never a decoration on small elements. It covers full-bleed bands and large panels only, plus the single primary action card.
+**The One Gradient Rule.** The teal-to-blue gradient appears once, on the header bar. Never on text, panels, cards or bands.
 
 **The Blue Acts, Teal Belongs Rule.** Primary actions (submit, request a quote, search) are blue. Teal marks brand, selection and enquiry membership (active tab, added product). A teal primary button would blur the two.
 
@@ -224,7 +224,7 @@ A cool, bright palette: a white and mist base, a teal and blue pair, and deep na
 - **Label** (600, 0.875rem): buttons (0.9375rem), chips, field labels, product names in thumbnails (0.9375rem), and captions. Small meta text is 0.8125rem.
 
 ### Named Rules
-**The Two-Tone Rule.** A headline carries at most two solid tones: the statement in navy or ink, and one phrase in teal (`.tone`). Never gradient text, never a third colour.
+**The One-Accent Headline Rule.** Section titles are one tone (ink). Only the hero headline sets a phrase in teal (`.tone`). Never gradient text, never a third colour.
 
 **The Sentence-Case Rule.** Labels, buttons and column headings are sentence case at normal or near-normal tracking (at most 0.02em). Nothing is set in tracked uppercase.
 
@@ -240,7 +240,7 @@ Inner rhythm uses 8â€“22px gaps (8, 10, 12, 14, 16, 18, 20). Card padding is 14â
 
 ## Elevation & Depth
 
-The system is lightly lifted. Surfaces sit on soft, diffuse shadows tinted with ink (`rgb(11 29 46)`), never pure black and never hard offsets. The default lift is for cards and rows at rest. The higher lift is for floating things (search field, dropdowns, mega menu, action cards, quote form, mobile bar). Depth also comes from tonal layering: white cards on mist, mist panels inside white cards, and white forms on the gradient.
+The system is lightly lifted. Surfaces sit on soft, diffuse shadows tinted with ink (`rgb(11 29 46)`), never pure black and never hard offsets. The default lift is for cards and rows at rest. The higher lift is for floating things (search field, dropdowns, mega menu, action cards, quote form, mobile bar). Depth also comes from tonal layering: white cards on mist, never a card inside another card.
 
 ### Shadow Vocabulary
 - **Rest** (`box-shadow: 0 1px 2px rgb(11 29 46 / 0.06), 0 4px 14px rgb(11 29 46 / 0.06)`): cards and category rows at rest.

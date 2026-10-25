@@ -6,7 +6,7 @@ import { icon } from './icons.js';
 import { brandMark, accentStyle } from './brand.js';
 import { site, nav, legal } from '../data/site.js';
 import { sectors, products, chemicals, chemicalGroups, quickSearches, defaultUnit, productHref, registrations, registrationsFor } from '../data/products.js';
-import { process, reasons, markets, units, packagingOptions, gallery } from '../data/content.js';
+import { process, reasons, markets, units, packagingOptions } from '../data/content.js';
 import { images } from '../data/images.js';
 
 export const pic = (key, alt, { cls = '', eager = false, pos = '', sizes = '100vw' } = {}) => {
@@ -29,7 +29,8 @@ const groupsInUse = () => chemicalGroups.filter((g) => chemicals.some((c) => c.g
 export const tbc = (flag, text = 'to be confirmed') => (flag ? '' : ` <span class="tbc">${text}</span>`);
 // tel: link for the contact number (digits and + only).
 export const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
-export const twoTone = (a, b) => `${esc(a)} <span class="tone">${esc(b)}</span>`;
+// Section titles are set in one tone; only the hero headline uses the accent.
+export const twoTone = (a, b) => `${esc(a)} ${esc(b)}`;
 
 // The picture for a product: its photograph, or the sector's drawn tile when
 // no honest photograph exists (never a stand-in photo of something else).
@@ -238,10 +239,10 @@ export const categories = () => html`
 export const factsBand = () => html`
 <section class="facts" aria-label="Portfolio at a glance">
   <ul>
-    <li>${icon('globe')}<strong>${sectors.length}</strong><span>divisions, one sourcing desk</span></li>
-    <li>${icon('list')}<strong>${products.length + chemicals.length}</strong><span>products across all four divisions</span></li>
-    <li>${icon('drum')}<strong>${chemicals.length}</strong><span>chemicals in ${chemicalGroups.length} groups: ${chemicalGroups.map((g) => g.short.toLowerCase()).join(', ')}</span></li>
-    <li>${icon('shield')}<strong>${registrations.length}</strong><span>export registrations named by our divisions</span></li>
+    <li><strong>${sectors.length}</strong><span>divisions, one sourcing desk</span></li>
+    <li><strong>${products.length + chemicals.length}</strong><span>products across all four divisions</span></li>
+    <li><strong>${chemicals.length}</strong><span>chemicals in ${chemicalGroups.length} groups: ${chemicalGroups.map((g) => g.short.toLowerCase()).join(', ')}</span></li>
+    <li><strong>${registrations.length}</strong><span>export registrations named by our divisions</span></li>
   </ul>
 </section>`;
 
@@ -426,45 +427,15 @@ export const processSection = () => html`
   </div>
 </section>`;
 
-/* What sets us apart: carousel ------------------------------------------- */
+/* What sets us apart: four commitments as ruled rows -------------------- */
 export const reasonsSection = () => html`
 <section class="section reasons" id="why" aria-labelledby="why-title">
-  <div class="section__head section__head--row">
-    <div>
-      <h2 class="section__title" id="why-title">${twoTone('What sets', 'us apart')}</h2>
-      <p class="section__lead">Commitments about how we work, not claims about volume.</p>
-    </div>
-    <div class="carousel__nav">
-      <button class="round-btn" type="button" data-carousel-prev aria-label="Previous">${icon('chevronLeft')}</button>
-      <button class="round-btn" type="button" data-carousel-next aria-label="Next">${icon('chevronRight')}</button>
-    </div>
-  </div>
-  <ul class="carousel" data-carousel aria-label="Reasons" tabindex="0">
-    ${reasons.map(
-      (r, i) => html`
-      <li class="slide" aria-roledescription="slide" aria-label="${i + 1} of ${reasons.length}">
-        <div class="slide__text">
-          <h3>${esc(r.phrase)}</h3>
-          <p>${esc(r.text)}</p>
-        </div>
-      </li>`,
-    )}
-  </ul>
-</section>`;
-
-/* Gallery ----------------------------------------------------------------- */
-export const gallerySection = () => html`
-<section class="section gallery" aria-labelledby="gallery-title">
   <div class="section__head">
-    <h2 class="section__title" id="gallery-title">${twoTone('From India’s farms,', 'mills and ports')}</h2>
-    <p class="section__lead">The trade GoodBiz Global sources from. These are openly licensed photographs of India’s industry, not our own facilities.</p>
+    <h2 class="section__title" id="why-title">What sets us apart</h2>
+    <p class="section__lead">Commitments about how we work, not claims about volume.</p>
   </div>
-  <ul class="gallery__grid">
-    ${gallery.map(
-      (g) => `<li class="${g.span === 'wide' ? 'is-wide' : ''}"><figure>${pic(g.image, g.caption, {
-        sizes: '(max-width: 760px) 100vw, 33vw',
-      })}<figcaption>${esc(g.caption)}</figcaption></figure></li>`,
-    )}
+  <ul class="reasons__list">
+    ${reasons.map((r) => `<li><h3>${esc(r.phrase)}</h3><p>${esc(r.text)}</p></li>`)}
   </ul>
 </section>`;
 
@@ -502,7 +473,7 @@ export const quote = () => html`
 <section class="section quote" id="quote" aria-labelledby="quote-title">
   <div class="quote__panel">
     <div class="quote__intro">
-      <h2 class="section__title section__title--light" id="quote-title">Request a quotation</h2>
+      <h2 class="section__title" id="quote-title">Request a quotation</h2>
       <p>One enquiry for any mix of products. We confirm the specification first, then quote in writing.</p>
       <ul class="quote__points">
         ${site.replyTime ? `<li>${icon('check')}<span>${esc(site.replyTime)}</span></li>` : ''}
@@ -553,53 +524,40 @@ export const quote = () => html`
   </div>
 </section>`;
 
-/* Footer ----------------------------------------------------------------- */
+/* Footer: company line, the four divisions, then legal ------------------ */
 export const footer = (credits = []) => html`
 <footer class="ftr">
   <div class="ftr__inner">
-    <p class="ftr__title">Explore Indian electrical, agricultural, hygiene and chemical products</p>
-    <div class="ftr__cols">
-      ${sectors.map(
-        (s) => html`
-        <div class="ftr__col">
-          <h2>${esc(s.short)}</h2>
-          <ul>${bySector(s.id)
-            .slice(0, 6)
-            .map((p) => `<li><a href="${productHref(p)}">${esc(p.name)}</a></li>`)}</ul>
-          <a class="ftr__all" href="${s.page}">View all ${bySector(s.id).length} ${icon('chevronRight')}</a>
-        </div>`,
-      )}
-    </div>
-    <div class="ftr__cols ftr__cols--meta">
-      <div class="ftr__col">
-        <h2>Company</h2>
-        <ul><li><a href="#about">About us</a></li><li><a href="#process">How we work</a></li><li><a href="#markets">Markets</a></li><li><a href="#why">What sets us apart</a></li></ul>
-      </div>
-      <div class="ftr__col">
-        <h2>Enquire</h2>
-        <ul><li><a href="#quote">Request a quotation</a></li><li><a href="#chemicals">Chemical pricing</a></li><li><a href="#categories">All categories</a></li></ul>
-      </div>
-      <div class="ftr__col">
-        <h2>Legal</h2>
-        <ul>${legal.map((l) => `<li><a href="${l.href}">${esc(l.label)}</a></li>`)}</ul>
-      </div>
-      <div class="ftr__col ftr__contact">
-        <h2>Contact</h2>
-        <ul>
-          <li>${icon('mail')}<span><a href="mailto:${site.email}">${esc(site.email)}</a>${tbc(site.emailConfirmed, 'address to be confirmed')}</span></li>
+    <div class="ftr__lead">
+      <p class="ftr__line">Indian sourcing.<br>Global opportunities.</p>
+      <div class="ftr__reach">
+        <a class="btn btn--white" href="#quote">Request a quotation</a>
+        <ul class="ftr__contact">
           ${site.phone ? `<li>${icon('phone')}<a href="${telHref}">${esc(site.phone)}</a></li>` : ''}
+          <li>${icon('mail')}<span><a href="mailto:${site.email}">${esc(site.email)}</a>${tbc(site.emailConfirmed, 'address to be confirmed')}</span></li>
           ${site.address ? `<li>${icon('pin')}<span>${esc(site.address)}</span></li>` : ''}
         </ul>
         ${site.hours ? `<p class="ftr__hours">${esc(site.hours)}</p>` : ''}
       </div>
     </div>
-    <div class="ftr__brand">
+    <nav class="ftr__divisions" aria-label="GoodBiz divisions">
+      <ul>${sectors.map(
+        (s) => html`
+        <li style="${accentStyle(s)}">
+          <a class="ftr__division" href="${s.page}">${brandMark(s, { size: 'sm' })}<span>${plural(bySector(s.id).length, 'product')}</span></a>
+          ${siteLink(s, 'ftr__site')}
+        </li>`,
+      )}</ul>
+    </nav>
+    <div class="ftr__meta">
       <p class="brand__name">GoodBiz<span> Global</span></p>
-      <p>${esc(site.tagline)}</p>
+      <ul>
+        <li><a href="#about">About us</a></li><li><a href="#process">How we work</a></li><li><a href="#registrations">Registrations</a></li><li><a href="#chemicals">Chemical pricing</a></li>
+      </ul>
     </div>
     <details class="ftr__credits">
       <summary>Picture credits ${icon('chevron')}</summary>
-      <p>Photographs show the trade around GoodBiz Global, not its own goods or facilities. Used under the licences named.</p>
+      <p>Product pictures come from the GoodBiz division websites. The other photographs show the trade around GoodBiz Global, used under the licences named.</p>
       <ul>${credits.map(
         (c) =>
           `<li><a href="${esc(c.page)}" rel="noopener">${esc(c.title)}</a>${c.creator ? ` by ${esc(c.creator)}` : ''}, ${

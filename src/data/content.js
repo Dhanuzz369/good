@@ -40,8 +40,8 @@ export const process = [
 
 export const reasons = [
   {
-    phrase: 'Five sectors, one desk',
-    text: 'Transformers, chilli, floor cleaner, fabric and solvents through one contact and one enquiry.',
+    phrase: 'Four divisions, one desk',
+    text: 'Transformers, rice, detergent powder and solvents through one contact and one enquiry.',
     field: 'navy',
     icon: 'globe',
     image: 'madras1996',
@@ -83,12 +83,3 @@ export const packagingOptions = [
   'No preference', 'Drums', 'IBC totes', 'ISO tank', 'Flexitank', 'Bags', 'Jumbo bags', 'Other (describe below)',
 ];
 
-// Photo gallery: the trade around GoodBiz Global (found, credited pictures).
-export const gallery = [
-  { image: 'chilliDrying', caption: 'Chillies drying in the sun', span: 'wide' },
-  { image: 'jnpt', caption: 'Container cranes, JNPT, Navi Mumbai' },
-  { image: 'jaggery', caption: 'Jaggery at market' },
-  { image: 'controlPanel', caption: 'Control panel under test' },
-  { image: 'copperSulphate', caption: 'Copper sulphate crystals' },
-  { image: 'madras1996', caption: 'Port of Madras (Chennai), 1996' },
-];

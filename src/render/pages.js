@@ -5,7 +5,7 @@ import { esc, html, addButton, plural } from './util.js';
 import { icon } from './icons.js';
 import { site } from '../data/site.js';
 import { sectors, chemicalGroups, defaultUnit, productHref, registrations } from '../data/products.js';
-import { pic, bySector, isChem, productMedia, reviewFlag, tbc, telHref, rangesOf, regLogos, siteLink, twoTone } from './sections.js';
+import { pic, bySector, isChem, productMedia, reviewFlag, tbc, telHref, rangesOf, regLogos, siteLink } from './sections.js';
 import { brandMark, accentStyle } from './brand.js';
 
 const chemPricingHref = (c) => `index.html?chem=${encodeURIComponent(c.id)}#chem-enquiry`;
@@ -77,7 +77,7 @@ export const brandGateway = () => html`
 <section class="section gateway" id="brands" aria-labelledby="brands-title">
   <div class="section__head section__head--row">
     <div>
-      <h2 class="section__title" id="brands-title">Our <span class="tone">brands</span></h2>
+      <h2 class="section__title" id="brands-title">Our brands</h2>
       <p class="section__lead">Four divisions, one sourcing desk. Choose the one you buy from to see only its products, or visit its own website.</p>
     </div>
     <nav class="gateway__jump" aria-label="Go straight to a division">
@@ -91,7 +91,7 @@ export const brandGateway = () => html`
 export const registrationsSection = () => html`
 <section class="section regs" id="registrations" aria-labelledby="regs-title">
   <div class="section__head">
-    <h2 class="section__title" id="regs-title">${twoTone('Registered', 'with')}</h2>
+    <h2 class="section__title" id="regs-title">Registered with</h2>
     <p class="section__lead">Export bodies and regulators our divisions name on their own websites.</p>
   </div>
   <ul class="regs__grid">${registrations.map(
@@ -110,24 +110,6 @@ export const registrationsSection = () => html`
     .filter((s) => registrations.some((r) => r.divisions.includes(s.id)))
     .map((s) => esc(s.brand))
     .join(' and ')}. Ask us for registration details with your quotation.</p>
-</section>`;
-
-// Lower on the homepage: every product, filed under its division.
-export const brandsSection = () => html`
-<section class="section product-index" id="all-products" aria-labelledby="index-title">
-  <div class="section__head">
-    <h2 class="section__title" id="index-title">Every product, <span class="tone">by brand</span></h2>
-    <p class="section__lead">Each name opens its own entry, with an enquiry or pricing action.</p>
-  </div>
-  <div class="product-index__cols">
-    ${sectors.map(
-      (s) => html`
-      <div class="product-index__col" style="${accentStyle(s)}">
-        <a class="product-index__head" href="${s.page}">${brandMark(s, { size: 'sm' })}</a>
-        <ul>${bySector(s.id).map((p) => `<li><a href="${productHref(p)}">${esc(p.name)}</a></li>`)}</ul>
-      </div>`,
-    )}
-  </div>
 </section>`;
 
 // Compact division tile for "Other GoodBiz brands" on a range page.
@@ -211,7 +193,7 @@ ${switcher(s)}
 </section>
 <section class="section brands brands--others" aria-labelledby="others-title">
   <div class="section__head">
-    <h2 class="section__title" id="others-title">Other GoodBiz <span class="tone">brands</span></h2>
+    <h2 class="section__title" id="others-title">Other GoodBiz brands</h2>
   </div>
   <div class="brand-tiles">${sectors.filter((x) => x.id !== s.id).map(brandCard)}</div>
 </section>

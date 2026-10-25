@@ -1,9 +1,13 @@
+/* Hallmark · audit + fix 2026-10-25 · genre: modern-minimal (B2B trade desk) · system: DESIGN.md
+ * fixed: gradient on 6 surfaces -> header only; card-in-card; two-tone titles; uniform image zoom;
+ * duplicate product index + 4-column product footer; decorative gallery; text carousel; raw colours -> tokens
+ * mobile: pass (no overflow 320-1440, single-line controls at 320) */
 /* Design tokens. Every colour, size, radius, shadow and duration comes from here.
  *
  * World: a bright B2B sourcing desk after the user-pinned reference
  * (ofbusiness.com layout and look), recoloured to GoodBiz teal, blue and
- * navy. White and cool mist grounds; one teal-to-blue gradient owns the
- * header, facts band, process panel, quote panel and footer.
+ * navy. White and cool mist grounds; the teal-to-blue gradient is the
+ * header bar's alone. Deep panels (process, footer) are flat navy.
  *
  * Type: Cabinet Grotesk for headlines (a confident grotesk with sharp
  * terminals, set in two solid tones), Switzer for running text, tables and
@@ -29,7 +33,20 @@
   --on-brand-2: #e2f0f3;
 
   --grad: linear-gradient(100deg, #086a5f 0%, #0f5f8f 55%, #1957a6 100%);
-  --grad-deep: linear-gradient(115deg, #075f56 0%, #0f4f80 60%, #12407f 100%);
+  /* Channels for translucent layers: scrims over photos, veils on dark. */
+  --scrim-rgb: 8 22 38;
+  --veil-rgb: 255 255 255;
+  --ink-rgb: 11 29 46;
+  --teal-rgb: 10 127 114;
+  --blue-rgb: 25 87 166;
+  --on-dark-muted: #d6e2ea;
+  --on-dark-soft: #e3edf3;
+  --row-hover: #f8fbfc;
+  /* Icon tiles for products without a photograph, one per division. */
+  --tile-electrical-bg: #e7eff9; --tile-electrical-fg: #134687;
+  --tile-agri-bg: #eaf4e4; --tile-agri-fg: #3e6b1f;
+  --tile-fmcg-bg: #e4f3f0; --tile-fmcg-fg: #086a5f;
+  --tile-chemicals-bg: #ebeef5; --tile-chemicals-fg: #2f3f73;
 
   --error: #b42318;
   --error-bg: #fef3f2;
