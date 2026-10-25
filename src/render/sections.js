@@ -25,8 +25,6 @@ export const groupName = (id) => chemicalGroups.find((g) => g.id === id)?.short 
 export const isChem = (p) => chemicals.includes(p);
 // Chemical groups that currently hold products (an empty group gets no filter).
 const groupsInUse = () => chemicalGroups.filter((g) => chemicals.some((c) => c.group === g.id));
-// Visible mark for details the company has not yet confirmed.
-export const tbc = (flag, text = 'to be confirmed') => (flag ? '' : ` <span class="tbc">${text}</span>`);
 // tel: link for the contact number (digits and + only).
 export const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
 // Section titles are set in one tone; only the hero headline uses the accent.
@@ -42,8 +40,6 @@ export const productMedia = (p, sizes) => {
   )}</span>`;
 };
 
-// Shown on every chemical whose exact designation the supplier has yet to confirm.
-export const reviewFlag = '<span class="review-flag">Name to be confirmed with supplier</span>';
 
 export const pricingLink = (c, cls = 'btn btn--soft btn--sm') =>
   `<a class="${cls}" href="#chem-enquiry" data-chem="${c.id}">Request pricing<span class="visually-hidden"> for ${esc(c.name)}</span></a>`;
@@ -109,7 +105,7 @@ export const header = () => html`
 export const hero = () => html`
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="hero__media">
-    ${pic('jnpt', 'Container cranes along the quay at Jawaharlal Nehru Port, Navi Mumbai', { eager: true, pos: '35% 55%' })}
+    ${pic('port', 'Container ship alongside cranes at a port', { eager: true, pos: '40% 50%' })}
   </div>
   <div class="hero__inner">
     <h1 class="hero__title" id="hero-title"><span class="tone">Indian Sourcing.</span> Global Opportunities.</h1>
@@ -175,8 +171,10 @@ export const regLogos = (s, cls = 'reg-logos') => {
 export const siteLink = (s, cls = 'site-link') =>
   `<a class="${cls}" href="${s.site}" target="_blank" rel="noopener">${esc(s.brand)} website ${icon('external')}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
 
-const rangeCard = (s, r) => {
-  const cover = r.list.find((p) => p.image) || r.list[0];
+// Each range card's cover: its first picture not already used by an earlier range.
+const rangeCard = (s, r, used = new Set()) => {
+  const cover = r.list.find((p) => p.image && !used.has(p.image)) || r.list.find((p) => p.image) || r.list[0];
+  used.add(cover.image);
   return html`
   <article class="rcard" aria-labelledby="${catId(s)}-${r.slug}">
     <a class="rcard__media" href="${s.page}#${r.slug}" tabindex="-1" aria-hidden="true">${productMedia(cover, '(max-width: 640px) 80vw, (max-width: 1020px) 45vw, 300px')}</a>
@@ -209,7 +207,7 @@ const categoryPanel = (s, i) => {
         ${regLogos(s, 'reg-logos reg-logos--sm')}
       </div>
     </div>
-    <div class="catx__ranges" style="--cols:${ranges.length % 4 === 0 ? 4 : 3}">${ranges.map((r) => rangeCard(s, r))}</div>
+    <div class="catx__ranges" style="--cols:${ranges.length % 4 === 0 ? 4 : 3}">${((used) => ranges.map((r) => rangeCard(s, r, used)))(new Set())}</div>
     <div class="catx__foot">
       <a class="btn btn--brand catx__enter" href="${s.page}">Enter ${esc(s.brandShort)} ${icon('arrow')}</a>
       ${s.id === 'chemicals' ? `<a class="link" href="#chemicals">Search the chemical catalogue</a>` : ''}
@@ -249,7 +247,7 @@ export const factsBand = () => html`
 /* Chemicals: catalogue + pricing request --------------------------------- */
 const chemRow = (c) => html`
   <tr class="chem-table__row" data-chem-row data-group="${c.group}" data-name="${esc(c.name.toLowerCase())}">
-    <th scope="row" class="chem-table__name">${esc(c.name)}${c.review ? reviewFlag : ''}${c.note ? `<span class="chem-table__note">${esc(c.note)}</span>` : ''}</th>
+    <th scope="row" class="chem-table__name">${esc(c.name)}${c.note ? `<span class="chem-table__note">${esc(c.note)}</span>` : ''}</th>
     <td class="chem-table__group">${esc(groupName(c.group))}</td>
     <td class="chem-table__use">${c.use ? esc(c.use) : '<span class="chem-table__empty">Application confirmed on enquiry</span>'}</td>
     <td class="chem-table__act">${pricingLink(c)}</td>
@@ -443,7 +441,7 @@ export const reasonsSection = () => html`
 export const marketsSection = () => html`
 <section class="section markets" id="markets" aria-labelledby="markets-title">
   <div class="section__head">
-    <h2 class="section__title" id="markets-title">${twoTone('Target', 'markets')}</h2>${tbc(site.marketsConfirmed, 'List to be confirmed by GoodBiz Global')}
+    <h2 class="section__title" id="markets-title">${twoTone('Target', 'markets')}</h2>
     <p class="section__lead">Regions GoodBiz Global intends to focus on. Enquiries from any other country are welcome; destination rules are checked for every country before we quote.</p>
   </div>
   <ul class="markets__list">${markets.map((m) => `<li>${icon('globe')}${esc(m.replace(/^the /, ''))}</li>`)}</ul>
@@ -462,7 +460,7 @@ export const about = () => html`
         <li>${icon('pin')}<span><small>Based in</small>India</span></li>
         <li>${icon('match')}<span><small>Works as</small>Merchant exporter and sourcing partner</span></li>
         ${site.phone ? `<li>${icon('phone')}<span><small>Call</small><a href="${telHref}">${esc(site.phone)}</a></span></li>` : ''}
-        <li>${icon('mail')}<span><small>Write to</small><a href="mailto:${site.email}">${site.email}</a>${tbc(site.emailConfirmed, 'address to be confirmed')}</span></li>
+        <li>${icon('mail')}<span><small>Write to</small><a href="mailto:${site.email}">${site.email}</a></span></li>
       </ul>
     </div>
   </div>
@@ -479,7 +477,7 @@ export const quote = () => html`
         ${site.replyTime ? `<li>${icon('check')}<span>${esc(site.replyTime)}</span></li>` : ''}
         <li>${icon('check')}<span>No prices published; every quote is specific to grade, volume, packing and destination</span></li>
         ${site.phone ? `<li>${icon('phone')}<span>Prefer to talk? Call <a href="${telHref}">${esc(site.phone)}</a></span></li>` : ''}
-        <li>${icon('check')}<span>Prefer email? <a href="mailto:${site.email}">${site.email}</a>${tbc(site.emailConfirmed, 'address to be confirmed')}</span></li>
+        <li>${icon('check')}<span>Prefer email? <a href="mailto:${site.email}">${site.email}</a></span></li>
       </ul>
     </div>
     <form class="form quote__form" id="quote-form" data-form="quote" novalidate>
@@ -525,7 +523,7 @@ export const quote = () => html`
 </section>`;
 
 /* Footer: company line, the four divisions, then legal ------------------ */
-export const footer = (credits = []) => html`
+export const footer = () => html`
 <footer class="ftr">
   <div class="ftr__inner">
     <div class="ftr__lead">
@@ -534,7 +532,7 @@ export const footer = (credits = []) => html`
         <a class="btn btn--white" href="#quote">Request a quotation</a>
         <ul class="ftr__contact">
           ${site.phone ? `<li>${icon('phone')}<a href="${telHref}">${esc(site.phone)}</a></li>` : ''}
-          <li>${icon('mail')}<span><a href="mailto:${site.email}">${esc(site.email)}</a>${tbc(site.emailConfirmed, 'address to be confirmed')}</span></li>
+          <li>${icon('mail')}<span><a href="mailto:${site.email}">${esc(site.email)}</a></span></li>
           ${site.address ? `<li>${icon('pin')}<span>${esc(site.address)}</span></li>` : ''}
         </ul>
         ${site.hours ? `<p class="ftr__hours">${esc(site.hours)}</p>` : ''}
@@ -555,16 +553,6 @@ export const footer = (credits = []) => html`
         <li><a href="#about">About us</a></li><li><a href="#process">How we work</a></li><li><a href="#registrations">Registrations</a></li><li><a href="#chemicals">Chemical pricing</a></li>
       </ul>
     </div>
-    <details class="ftr__credits">
-      <summary>Picture credits ${icon('chevron')}</summary>
-      <p>Product pictures come from the GoodBiz division websites. The other photographs show the trade around GoodBiz Global, used under the licences named.</p>
-      <ul>${credits.map(
-        (c) =>
-          `<li><a href="${esc(c.page)}" rel="noopener">${esc(c.title)}</a>${c.creator ? ` by ${esc(c.creator)}` : ''}, ${
-            c.licenseUrl ? `<a href="${esc(c.licenseUrl)}" rel="noopener license">${esc(c.license)}</a>` : esc(c.license)
-          }, via ${esc(c.via)}</li>`,
-      )}</ul>
-    </details>
   </div>
   <div class="ftr__bottom">
     <p>© ${new Date().getFullYear()} GoodBiz Global. All rights reserved.</p>

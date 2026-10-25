@@ -122,30 +122,32 @@ export const products = [
     ['lt-mcc', 'Motor control centres (MCC)', { image: 'pwLtMcc' }],
     ['lt-plc', 'PLC and automation panels', { image: 'pwLtPlc' }],
     ['lt-ats', 'ATS and changeover panels', { image: 'pwLtAts' }],
-    ['lt-apfc', 'APFC and capacitor banks', { icon: 'gauge' }],
+    ['lt-apfc', 'APFC and capacitor banks', { image: 'pwLtPcc' }],
     ['lt-db', 'Distribution boards', { image: 'pwLtDb' }],
   ].map((x) => [...x.slice(0, 2), { url: pwUrl('lt-panels'), ...x[2] }])),
   ...P('electrical', 'MV switchgear & RMU', [
-    ['mv-ais', 'Air-insulated switchgear (AIS)'],
-    ['mv-gis', 'Gas-insulated switchgear (GIS)'],
-    ['rmu', 'Ring main units (RMU)', { featured: true }],
-    ['mv-vcb', 'Vacuum circuit breakers'],
-    ['mv-lbs', 'Load break switches and isolators'],
+    ['mv-ais', 'Air-insulated switchgear (AIS)', { image: 'pwMvLineup' }],
+    ['mv-gis', 'Gas-insulated switchgear (GIS)', { image: 'pwMvCompartment' }],
+    ['rmu', 'Ring main units (RMU)', { image: 'pwMvPedestal', featured: true }],
+    ['mv-vcb', 'Vacuum circuit breakers', { image: 'pwMvModular' }],
+    ['mv-lbs', 'Load break switches and isolators', { image: 'pwMvMetering' }],
   ].map((x) => [x[0], x[1], { url: pwUrl('mv-switchgear-rmu'), icon: 'rmu', ...x[2] }])),
   ...P('electrical', 'Transformers', [
     ['tr-oil-distribution', 'Oil-filled distribution transformers', { image: 'pwTrOnan', featured: true }],
     ['tr-oil-power', 'Oil-filled power transformers', { image: 'pwTrOnaf' }],
-    ['tr-large-power', 'Large power transformers', { icon: 'transformer' }],
+    ['tr-large-power', 'Large power transformers', { image: 'pwTrOnaf' }],
     ['tr-dry', 'Dry-type (cast resin) transformers', { image: 'pwTrDry' }],
-    ['tr-converter', 'Converter and inverter duty transformers', { icon: 'transformer' }],
+    ['tr-converter', 'Converter and inverter duty transformers', { image: 'pwTrDry' }],
   ].map((x) => [x[0], x[1], { url: pwUrl('transformers'), ...x[2] }])),
   ...P('electrical', 'Breakers & contactors', [
-    ['br-acb', 'Air circuit breakers (ACB)', { featured: true }],
-    ['br-mccb', 'Moulded case circuit breakers (MCCB)'],
-    ['br-mcb', 'Miniature circuit breakers (MCB)'],
-    ['br-rcd', 'Residual current devices'],
-    ['br-contactors', 'Industrial contactors'],
-    ['br-relays', 'Relays'],
+    // The division site has no breaker photos; these are its panel pictures
+    // that show the devices fitted (ACB incomers, MCCB and MCB rows, relays).
+    ['br-acb', 'Air circuit breakers (ACB)', { image: 'pwLtPcc', featured: true }],
+    ['br-mccb', 'Moulded case circuit breakers (MCCB)', { image: 'pwLtDb' }],
+    ['br-mcb', 'Miniature circuit breakers (MCB)', { image: 'pwLtDb' }],
+    ['br-rcd', 'Residual current devices', { image: 'pwLtDb' }],
+    ['br-contactors', 'Industrial contactors', { image: 'pwLtMcc' }],
+    ['br-relays', 'Relays', { image: 'pwLtPlc' }],
   ].map((x) => [x[0], x[1], { url: pwUrl('breakers-contactors'), icon: 'bolt', ...x[2] }])),
   ...P('electrical', 'Enclosures & junction boxes', [
     ['enc-modular', 'Modular panel cabinets', { image: 'pwEncModular', featured: true }],
@@ -157,7 +159,7 @@ export const products = [
     ['pt-busbars', 'Busbars and busbar supports', { image: 'pwBusbars', featured: true }],
     ['pt-insulators', 'Insulators and shrouds', { image: 'pwInsulators' }],
     ['pt-terminals', 'Terminals and wiring accessories', { image: 'pwTerminals' }],
-    ['pt-spares', 'Switchgear spares', { icon: 'enclosure' }],
+    ['pt-spares', 'Switchgear spares', { image: 'pwInsulators' }],
   ].map((x) => [x[0], x[1], { url: pwUrl('parts'), ...x[2] }])),
 
   // GoodBiz Agro: origin is the belt the division site names for each crop
@@ -183,7 +185,7 @@ export const products = [
   ...P('fmcg', 'Bath & personal soaps', [
     ['toilet-bath-soap', 'Toilet and bath soap', { image: 'hyToiletBathSoap', featured: true }],
     ['herbal-ayurvedic-soap', 'Herbal and ayurvedic soap', { image: 'hyHerbalSoap' }],
-    ['glycerin-soap', 'Glycerin and transparent soap', { icon: 'droplet', slug: 'glycerin-transparent-soap' }],
+    ['glycerin-soap', 'Glycerin and transparent soap', { image: 'hyRenderBarClear', slug: 'glycerin-transparent-soap' }],
     ['antibacterial-soap', 'Antibacterial and medicated soap', { image: 'hyAntibacterialSoap' }],
     ['hotel-guest-soap', 'Hotel and guest soap (mini bars)', { image: 'hyHotelSoap' }],
     ['liquid-hand-wash', 'Liquid hand wash', { image: 'hyHandWash', featured: true }],
@@ -208,10 +210,10 @@ export const products = [
     ['multi-surface-cleaner', 'Multi-surface cleaner', { image: 'hyMultiSurface' }],
   ]),
   ...P('fmcg', 'Industrial & raw materials', [
-    ['soap-noodles', 'Soap noodles', { icon: 'drum' }],
-    ['hy-labsa', 'LABSA for detergent making', { icon: 'flask', slug: 'labsa' }],
-    ['hy-sles', 'SLES for liquid formulations', { icon: 'flask', slug: 'sles' }],
-    ['bulk-cleaning-chemicals', 'Bulk and institutional cleaning chemicals', { icon: 'drum', slug: 'bulk-institutional-cleaners' }],
+    ['soap-noodles', 'Soap noodles', { image: 'hyRenderSack' }],
+    ['hy-labsa', 'LABSA for detergent making', { image: 'hyRenderDrum', slug: 'labsa' }],
+    ['hy-sles', 'SLES for liquid formulations', { image: 'hyRenderDrum', slug: 'sles' }],
+    ['bulk-cleaning-chemicals', 'Bulk and institutional cleaning chemicals', { image: 'hyRenderCarboy', slug: 'bulk-institutional-cleaners' }],
   ]),
 ].map(({ slug, ...p }) => (p.sector === 'fmcg' ? { ...p, url: hyUrl(slug || p.id) } : p));
 
@@ -241,12 +243,12 @@ export const chemicals = [
     ['titanium-dioxide', 'Titanium dioxide', 'White pigment for paints, plastics and coatings', { image: 'titaniumDioxide', featured: true }],
     ['caustic-soda', 'Caustic soda (solid)', 'Soap, detergent and process chemical', { image: 'causticSoda', featured: true, slug: 'caustic-soda-flakes' }],
     ['caustic-soda-liquid', 'Liquid caustic soda', 'Soap, detergent and process chemical', { slug: 'liquid-caustic-soda' }],
-    ['copper-sulphate', 'Copper sulphate', 'Agricultural and electroplating applications', { image: 'copperSulphate', featured: true }],
+    ['copper-sulphate', 'Copper sulphate', 'Agricultural and electroplating applications', { featured: true }],
   ]),
   ...C('surfactants', [
-    ['labsa', 'LABSA', 'Anionic surfactant for detergents', { icon: 'flask', featured: true }],
-    ['sles-70', 'SLES 70%', 'Surfactant for liquid detergents and personal care', { icon: 'flask', featured: true }],
-    ['sles-28', 'SLES 28%', 'Surfactant for liquid detergents and personal care'],
+    ['labsa', 'LABSA', 'Anionic surfactant for detergents', { image: 'hyRenderDrum', featured: true }],
+    ['sles-70', 'SLES 70%', 'Surfactant for liquid detergents and personal care', { image: 'hyRenderDrum', featured: true }],
+    ['sles-28', 'SLES 28%', 'Surfactant for liquid detergents and personal care', { image: 'hyRenderDrum' }],
     ['sls', 'SLS / sodium lauryl sulphate', 'Foaming surfactant', { slug: 'sodium-lauryl-sulphate' }],
     ['aos', 'Alpha olefin sulphonate (AOS)', 'Anionic surfactant', { slug: 'alpha-olefin-sulphonate' }],
     ['slsa', 'Sodium lauryl sulphoacetate', 'Mild anionic surfactant', { slug: 'sodium-lauryl-sulphoacetate' }],
@@ -256,7 +258,9 @@ export const chemicals = [
       note: 'Restricted in the EU and several other markets. Destination rules are confirmed before quotation.',
     }],
   ]),
-].map(({ slug, ...c }) => c);
+// The chemicals site shows no product photos; its molecule illustration
+  // stands in for every chemical without a photograph of its own.
+].map(({ slug, ...c }) => ({ image: 'chMolecule', ...c }));
 
 // Registrations each division names on its own website, with its logo.
 export const registrations = [

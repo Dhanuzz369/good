@@ -5,8 +5,8 @@ export const process = [
     verb: 'Enquire',
     icon: 'doc',
     text: 'Tell us the product, the quantity and the destination. The forms on this page are enough to start.',
-    image: 'byadgi',
-    position: '50% 40%',
+    image: 'agTurmeric',
+    position: '50% 50%',
   },
   {
     verb: 'Specify',
@@ -19,8 +19,8 @@ export const process = [
     verb: 'Match',
     icon: 'match',
     text: 'We approach Indian manufacturers, growers and processors able to meet that specification.',
-    image: 'controlPanel',
-    position: '40% 50%',
+    image: 'pwLtPlc',
+    position: '50% 50%',
   },
   {
     verb: 'Quote',
@@ -33,7 +33,7 @@ export const process = [
     verb: 'Ship',
     icon: 'ship',
     text: 'We coordinate packing, export documentation and handover to your forwarder or nominated line.',
-    image: 'jnpt',
+    image: 'port',
     position: '30% 50%',
   },
 ];
@@ -58,14 +58,14 @@ export const reasons = [
     text: 'Restricted substances, food-safety rules and export policy are checked for your country before we quote.',
     field: 'teal',
     icon: 'shield',
-    image: 'controlPanel',
+    image: 'pwLtPlc',
   },
   {
     phrase: 'Real documents only',
     text: 'SDS, TDS and COA are shared when the producer issues them for your lot. We never write our own.',
     field: 'petrol',
     icon: 'doc',
-    image: 'copperSulphate',
+    image: 'chMolecule',
   },
 ];
 

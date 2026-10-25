@@ -306,7 +306,6 @@ A white 22px row with a hairline border and the Rest shadow. On the left, a 248p
 - **Every product, by brand:** five columns, each topped by a 4px accent rule and the small lockup, listing every product as a link to its entry.
 - **Brand card (Our brands):** photo, gradient icon badge overlapping the photo edge, range name, tagline, every product as a pill link to its own entry, "Explore all N".
 - **Range page:** photo hero with breadcrumb, product-line count and pitch; a grid of product cards anchored by product id (photo cards, or text-led mist cards when no honest photo exists); other ranges as compact brand cards; gradient enquiry panel.
-- **Amber notice pill:** `warn` on `warn-bg` for honest-data flags ("Name to be confirmed with supplier", "to be confirmed").
 - **Mobile (below 1080px):** a 44px translucent-white menu button opens a white drop panel with 52px full-width rows separated by hairlines.
 
 ### Footer
@@ -319,7 +318,7 @@ A deep-gradient field with five link columns. Column headings are Switzer 700 at
 - **Do** use blue for actions and teal for brand, selection and enquiry state (The Blue Acts, Teal Belongs Rule).
 - **Do** set headlines in Cabinet Grotesk 700/800 with negative tracking, in two solid tones at most.
 - **Do** use the gradient only as a full-bleed band or large panel, with white or on-brand-2 text on it and white focus rings.
-- **Do** put a real, credited photograph in every product or category tile. Where none exists, use the sector-tinted line icon from the single 24px, 1.75-stroke icon set.
+- **Do** put a real picture in every product and range tile: the division websites' own pictures first, then CC0 or public-domain photographs (no credit needed). Never a licence that requires attribution, since the page carries no credits.
 - **Do** give every motion (ticker drift, dropdown pop, card lift, tab crossfade, reveal) a reduced-motion fallback.
 
 ## Motion
@@ -333,7 +332,7 @@ Tokens: `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)` for anything entering or re
 - One authored entrance: the hero headline, lead, search, chips and action cards rise 14px with a 70ms stagger on first load. Scroll reveals only on category rows and brand cards (60ms stagger, capped at 240ms).
 - Never animated: chemical filtering and search typing, keyboard tab switches, result-list updates.
 - Reduced motion keeps opacity and colour feedback, drops all travel, stops the ticker and banner autoplay.
-- **Do** mark unconfirmed facts with the amber "to be confirmed" pill instead of omitting the field silently.
+- **Do** leave a field out rather than guess it; the page carries no "to be confirmed" marks.
 
 ### Don't:
 - **Don't** use gradient text, a third headline colour, or the gradient on small elements.

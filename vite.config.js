@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -18,14 +17,7 @@ const renderSections = () => ({
     const load = loaderFor(ctx);
     const s = await load('src/render/sections.js');
     const pages = await load('src/render/pages.js');
-    const { images } = await load('src/data/images.js');
     const { sectors } = await load('src/data/products.js');
-    const all = JSON.parse(readFileSync(resolve('source-images/credits.json'), 'utf8'));
-    const creditsFor = (out) =>
-      Object.values(images)
-        .filter((i) => out.includes(i.src))
-        .map((i) => all.find((c) => c.file === i.source))
-        .filter(Boolean);
 
     // Dev server only: ?data=worst|empty|one|huge swaps in a break-ui fixture
     // for this render and a small toggle is added to the page.
@@ -51,7 +43,7 @@ const renderSections = () => ({
       let out = htmlSource
         .replace('<!-- @section header -->', rebase(s.header()))
         .replace(sectorMatch[0], pages.sectorPage(sector));
-      return out.replace('<!-- @section footer -->', rebase(s.footer(creditsFor(out))));
+      return out.replace('<!-- @section footer -->', rebase(s.footer()));
     }
     if (!ctx.filename.endsWith('index.html')) return htmlSource;
 
@@ -71,7 +63,7 @@ const renderSections = () => ({
       .replace('<!-- @section quote -->', s.quote());
 
     // Credit exactly the pictures the page uses.
-    out = out.replace('<!-- @section footer -->', s.footer(creditsFor(out)));
+    out = out.replace('<!-- @section footer -->', s.footer());
     return out;
     }
   },

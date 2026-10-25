@@ -190,7 +190,7 @@ export function initSearch({ onRender } = {}) {
         link.append(nameWithMark(p.name, q));
         link.addEventListener('click', close);
         const small = document.createElement('small');
-        small.textContent = `${p.sectorName} · ${p.detail}${p.review ? ' · name to be confirmed with supplier' : ''}`;
+        small.textContent = `${p.sectorName} · ${p.detail}`;
         text.append(link, small);
         li.append(media(p), text, action(p));
         list.append(li);

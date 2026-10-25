@@ -22,16 +22,14 @@ export const images = {
   garlic: entry('garlic', 1200, 800, src('garlic.jpg')),
   rice: entry('rice', 1200, 804, src('rice.jpg')),
   switchgear: entry('switchgear', 683, 1024, pub('switchgear.webp')),
-  controlPanel: entry('control-panel', 1200, 1191, src('control-panel.jpg')),
   transformer: entry('transformer', 1600, 1066, pub('transformer.jpg')),
   drums: entry('drums', 1600, 1200, pub('drums.jpg')),
   causticSoda: entry('caustic-soda', 1200, 954, src('caustic-soda.jpg')),
   titaniumDioxide: entry('titanium-dioxide', 1200, 798, src('titanium-dioxide.jpg')),
-  copperSulphate: entry('copper-sulphate', 1200, 894, src('copper-sulphate.jpg')),
   soap: entry('soap', 1131, 1542, pub('soap.jpg')),
   liquidSoap: entry('liquid-soap', 1200, 2024, src('liquid-soap.jpg')),
   laundryPowder: entry('laundry-powder', 1200, 801, src('laundry-powder.jpg')),
-  jnpt: entry('jnpt', 1600, 900, pub('jnpt.jpg')),
+  port: entry('port', 1024, 709, pub('port.webp')),
   madras1996: entry('madras-port-1996', 1600, 1045, pub('madras-port-1996.jpg')),
 
   // Product pictures from the GoodBiz division websites (no credit entry:
@@ -78,4 +76,15 @@ export const images = {
   hyToiletBowl: entry('div/hy-toilet-bowl-cleaner', 1255, 941, null),
   hyTileCleaner: entry('div/hy-bathroom-tile-cleaner', 1255, 941, null),
   hyMultiSurface: entry('div/hy-multi-surface-cleaner', 1255, 941, null),
+  // Added to cover the products that had no picture yet.
+  hyRenderBarClear: entry('div/hy-r-bar-clear', 1200, 1500, null),
+  hyRenderSack: entry('div/hy-r-sack', 1200, 1500, null),
+  hyRenderDrum: entry('div/hy-r-drum', 1200, 1500, null),
+  hyRenderCarboy: entry('div/hy-r-carboy', 1200, 1500, null),
+  pwMvLineup: entry('div/pw-enclosure-multi-section-lineup', 1536, 1024, null),
+  pwMvCompartment: entry('div/pw-enclosure-compartment-cabinet', 1536, 1024, null),
+  pwMvPedestal: entry('div/pw-enclosure-pedestal-cabinet', 1536, 1024, null),
+  pwMvModular: entry('div/pw-enclosure-modular-distribution', 1536, 1024, null),
+  pwMvMetering: entry('div/pw-enclosure-metering-cabinet', 1536, 1024, null),
+  chMolecule: entry('div/ch-molecule', 840, 630, null),
 };

@@ -313,12 +313,6 @@
 .ftr__meta ul { display: flex; flex-wrap: wrap; gap: 0 24px; }
 .ftr__meta ul a { display: inline-block; padding: 10px 0; font-size: 0.9375rem; text-decoration: none; white-space: nowrap; }
 @media (hover: hover) and (pointer: fine) { .ftr__meta ul a:hover { text-decoration: underline; } }
-.ftr__credits { font-size: var(--fs-small); color: var(--on-dark-muted); }
-.ftr__credits summary { cursor: pointer; font-weight: 600; color: var(--white); padding: 12px 0; min-height: 44px; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
-.ftr__credits summary::-webkit-details-marker { display: none; }
-.ftr__credits summary .icon { width: 16px; height: 16px; transition: transform var(--dur) var(--ease-out); }
-.ftr__credits[open] summary .icon { transform: rotate(180deg); }
-.ftr__credits ul { display: grid; gap: 6px; margin-top: 8px; }
 .ftr__bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
   padding: 16px max(var(--gutter), calc((100% - var(--max)) / 2)); background: rgb(var(--scrim-rgb) / 0.35); font-size: var(--fs-small);

@@ -5,7 +5,7 @@ import { esc, html, addButton, plural } from './util.js';
 import { icon } from './icons.js';
 import { site } from '../data/site.js';
 import { sectors, chemicalGroups, defaultUnit, productHref, registrations } from '../data/products.js';
-import { pic, bySector, isChem, productMedia, reviewFlag, tbc, telHref, rangesOf, regLogos, siteLink } from './sections.js';
+import { pic, bySector, isChem, productMedia, telHref, rangesOf, regLogos, siteLink } from './sections.js';
 import { brandMark, accentStyle } from './brand.js';
 
 const chemPricingHref = (c) => `index.html?chem=${encodeURIComponent(c.id)}#chem-enquiry`;
@@ -130,7 +130,6 @@ const productCard = (p) => {
     ${p.image ? `<div class="pcard__media">${productMedia(p, '(max-width: 760px) 100vw, 30vw')}</div>` : ''}
     <div class="pcard__body">
       <h3 class="pcard__name" id="${p.id}-name">${esc(p.name)}</h3>
-      ${p.review ? reviewFlag : ''}
       <ul class="pcard__meta">${meta.filter(Boolean).map((m) => `<li>${esc(m)}</li>`)}</ul>
       ${p.note ? `<p class="pcard__note">${esc(p.note)}</p>` : ''}
       <div class="pcard__actions">
@@ -202,7 +201,7 @@ ${switcher(s)}
     <h2 class="section__title section__title--light" id="range-cta-title">Ready to send an enquiry?</h2>
     <p>Add the ${esc(s.brandShort)} products you need, then send one enquiry with quantities and destination. You can mix products from every GoodBiz brand.</p>
     <a class="btn btn--white" href="index.html#quote">Review your enquiry list</a>
-    <p class="range-cta__mail">${site.phone ? `Call <a href="${telHref}">${esc(site.phone)}</a> or write` : 'Or write'} to <a href="mailto:${site.email}">${site.email}</a>${tbc(site.emailConfirmed, 'address to be confirmed')}</p>
+    <p class="range-cta__mail">${site.phone ? `Call <a href="${telHref}">${esc(site.phone)}</a> or write` : 'Or write'} to <a href="mailto:${site.email}">${site.email}</a></p>
   </div>
 </section>
 </div>`;

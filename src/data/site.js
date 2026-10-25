@@ -8,10 +8,6 @@ export const site = {
   // TODO: confirm the real enquiry mailbox. Enquiry forms open a pre-filled
   // email to this address until a form backend is connected.
   email: 'enquiries@goodbizglobal.com',
-  // Set to true once the mailbox is confirmed; until then the page marks it.
-  emailConfirmed: false,
-  // Set to true once GoodBiz Global confirms the target-markets list.
-  marketsConfirmed: false,
   // Contact number, shown in the footer, quote panel, About card and range pages.
   phone: '+91 8884799369',
   // TODO: replace with the registered office address.

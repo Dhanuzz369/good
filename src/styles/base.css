@@ -55,5 +55,3 @@ a, button, li, label, th, td { position: relative; }
 
 .fineprint { font-size: var(--fs-small); color: var(--muted); max-width: 72ch; margin-top: 16px; }
 
-.tbc { display: inline-block; vertical-align: middle; margin-left: 6px; padding: 2px 8px; border-radius: var(--pill); background: var(--warn-bg); color: var(--warn); font-family: var(--font-text); font-size: 0.75rem; font-weight: 600; letter-spacing: 0; white-space: nowrap; }
-.section__head .tbc { justify-self: start; margin-left: 0; }
