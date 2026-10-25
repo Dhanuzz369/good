@@ -21,8 +21,8 @@ const fixtures = {
     // Long, real-world product designations spread across rows.
     products[0].name = '33 kV outdoor vacuum circuit breaker with numerical feeder-protection relay panel';
     products[3].name = 'IP66 stainless-steel junction boxes, explosion-proof (ATEX/IECEx) enclosures and cable glands';
-    products[8].origin = 'Guntur, Prakasam, Krishna and West Godavari districts, Andhra Pradesh; Byadgi, Haveri district, Karnataka';
-    products[18].name = 'Concentrated lemon-and-neem dishwashing liquid, 5 L and 20 L institutional packs';
+    products[30].origin = 'Guntur, Prakasam, Krishna and West Godavari districts, Andhra Pradesh; Byadgi, Haveri district, Karnataka';
+    products[45].name = 'Concentrated lemon-and-neem dishwashing liquid, 5 L and 20 L institutional packs';
     chemicals[0].name = 'Polyoxyethylene (20) sorbitan monooleate (Polysorbate 80)';
     chemicals[0].use = 'Non-ionic emulsifier and solubiliser for food, cosmetic and pharmaceutical formulations';
     chemicals.push({
@@ -31,21 +31,21 @@ const fixtures = {
       use: '', note: 'Designation, activity and grade to be confirmed with the supplier before quotation.',
     });
     // A product whose photograph is missing on the server.
-    images.missing = { ...images.byadgi, src: 'images/does-not-exist.webp', small: 'images/does-not-exist-800.webp' };
-    products[9].image = 'missing';
-    products[9].featured = true;
+    images.missing = { ...images.agTurmeric, src: 'images/does-not-exist.webp', small: 'images/does-not-exist-800.webp' };
+    products[31].image = 'missing';
+    products[31].featured = true;
     site.email = 'international.procurement.enquiries@goodbizglobal-exports.com';
     markets.push('the Democratic Republic of the Congo', 'Saint Vincent and the Grenadines', 'Bosnia and Herzegovina');
   },
   empty() {
     // A chemical group with nothing in it, and a range with no featured photos.
-    replace(chemicals, chemicals.filter((c) => c.group !== 'inorganic'));
+    replace(chemicals, chemicals.filter((c) => c.group !== 'inorganics'));
     products.forEach((p) => { if (p.sector === 'fmcg') p.featured = false; });
   },
   one() {
     // Exactly one of everything countable: pluralisation.
-    replace(products, [...products.filter((p) => p.sector !== 'textiles'), products.find((p) => p.sector === 'textiles')]);
-    replace(chemicals, [chemicals[0], ...chemicals.filter((c) => c.group !== 'solvents')]);
+    replace(products, [...products.filter((p) => p.sector !== 'agri'), products.find((p) => p.sector === 'agri')]);
+    replace(chemicals, [...chemicals.filter((c) => c.group !== 'solvents' || c.id === 'ethyl-acetate')]);
   },
   huge() {
     // A realistic upper bound for an unpaginated catalogue.

@@ -17,13 +17,15 @@ const aliases = {
   'sles-70': 'sodium laureth sulphate',
   'sles-28': 'sodium laureth sulphate',
   labsa: 'linear alkyl benzene sulphonic acid',
-  'byadgi-chilli': 'chili pepper spice',
-  'red-chilli-other': 'chili pepper spice',
   jaggery: 'gur gud cane sugar',
   rmu: 'switchgear medium voltage',
-  'power-transformers': 'transformer',
-  'oil-immersed-transformers': 'transformer distribution',
-  'cloth-fabrics': 'textile cotton',
+  'tr-oil-distribution': 'transformer',
+  'tr-oil-power': 'transformer',
+  'south-indian-rice': 'sona masoori ponni',
+  'arecanut': 'betel nut supari',
+  'groundnuts': 'peanuts',
+  'herbal-phenol': 'phenyl',
+  'dish-wash-liquid': 'dishwashing',
 };
 
 export const normalize = (s) =>

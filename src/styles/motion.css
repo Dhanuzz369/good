@@ -16,7 +16,7 @@
 /* Mobile-native baseline ------------------------------------------------- */
 html { -webkit-tap-highlight-color: transparent; }
 a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipulation; }
-.btn, .chip, .tab, .add, .cat__more, .thumb__action, .round-btn, .hdr__link, .menu-toggle, .ads__dot, .ads__pause, .mbar {
+.btn, .chip, .tab, .add, .thumb__action, .round-btn, .hdr__link, .menu-toggle, .ads__dot, .ads__pause, .mbar {
   user-select: none;
   -webkit-user-select: none;
 }
@@ -24,14 +24,14 @@ a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipul
 .ftr__bottom { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
 
 /* Press feedback --------------------------------------------------------- */
-.btn, .chip, .tab, .add, .cat__more, .thumb__action, .round-btn, .ads__dot, .ads__pause, .mbar__go, .enquiry-list__remove {
+.btn, .chip, .tab, .add, .thumb__action, .round-btn, .ads__dot, .ads__pause, .mbar__go, .enquiry-list__remove {
   transition:
     transform var(--dur-press) var(--ease-out),
     background-color var(--dur-fast) ease,
     color var(--dur-fast) ease,
     border-color var(--dur-fast) ease;
 }
-.btn:active, .chip:active, .tab:active, .add:active, .cat__more:active, .thumb__action:active,
+.btn:active, .chip:active, .tab:active, .add:active, .thumb__action:active,
 .round-btn:active, .ads__pause:active, .mbar__go:active, .enquiry-list__remove:active { transform: scale(0.97); }
 .action-card, .gate, .brand-tile { transition: transform var(--dur) var(--ease-out); }
 .action-card:active, .gate:active, .brand-tile:active { transform: scale(0.985); }
@@ -39,11 +39,11 @@ a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipul
 /* Hover travel: mouse and trackpad only ---------------------------------- */
 @media (hover: hover) and (pointer: fine) {
   .action-card:hover { transform: translateY(-3px); }
-  .gate:hover, .brand-tile:hover { transform: translateY(-3px); }
-  .action-card__go, .gate__go .icon, .cat__page .icon, .ad__link .icon { transition: transform var(--dur) var(--ease-out); }
-  .action-card:hover .action-card__go, .gate:hover .gate__go .icon, .cat__page:hover .icon, .ad__link:hover .icon { transform: translateX(3px); }
-  .thumb__media img, .gate__img, .brand-tile__img, .gallery__grid img, .cat__tile img { transition: transform var(--dur-slow) var(--ease-out); }
-  .thumb:hover .thumb__media img, .gate:hover .gate__img, .brand-tile:hover .brand-tile__img, .gallery__grid figure:hover img, .cat:hover .cat__tile img { transform: scale(1.04); }
+  .brand-tile:hover { transform: translateY(-3px); }
+  .action-card__go, .gate__go .icon, .ad__link .icon { transition: transform var(--dur) var(--ease-out); }
+  .action-card:hover .action-card__go, .gate:hover .gate__go .icon, .ad__link:hover .icon { transform: translateX(3px); }
+  .thumb__media img, .gate__img, .brand-tile__img, .gallery__grid img { transition: transform var(--dur-slow) var(--ease-out); }
+  .thumb:hover .thumb__media img, .gate:hover .gate__img, .brand-tile:hover .brand-tile__img, .gallery__grid figure:hover img { transform: scale(1.04); }
 }
 /* Header ----------------------------------------------------------------- */
 .hdr::after {
@@ -102,10 +102,6 @@ a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipul
 }
 
 /* Category "View all": an accordion, the one sanctioned layout animation. */
-.js .cat__all { transition: grid-template-rows 180ms var(--ease-out); }
-.js .cat__all.is-open { transition-duration: 260ms; }
-.js .cat__all-inner { opacity: 0; transition: opacity var(--dur-exit) var(--ease-out); }
-.js .cat__all.is-open .cat__all-inner { opacity: 1; transition: opacity var(--dur) var(--ease-out) 60ms; }
 
 /* Process tabs: a click gets a short crossfade; keyboard switches are instant. */
 .process__panel.is-entering { animation: fade-in 180ms var(--ease-out); }

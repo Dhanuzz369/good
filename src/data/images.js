@@ -1,5 +1,5 @@
-// Picture registry. Every picture on the site is a found, openly licensed
-// photograph of the trade's world (not GoodBiz Global's own goods). Each key
+// Picture registry. Product pictures come from the GoodBiz division websites;
+// the rest are found, openly licensed photographs of the trade's world. Each key
 // maps to its optimised WebP pair and to its entry in
 // source-images/credits.json, from which the on-page credits are built.
 // Replace with the company's own product photography when it exists.
@@ -28,12 +28,54 @@ export const images = {
   causticSoda: entry('caustic-soda', 1200, 954, src('caustic-soda.jpg')),
   titaniumDioxide: entry('titanium-dioxide', 1200, 798, src('titanium-dioxide.jpg')),
   copperSulphate: entry('copper-sulphate', 1200, 894, src('copper-sulphate.jpg')),
-  loom: entry('loom', 1600, 1195, pub('loom.jpg')),
-  fabricRolls: entry('fabric-rolls', 1600, 1068, pub('fabric-rolls.jpg')),
-  mill1941: entry('bombay-mill-1941', 1600, 1101, pub('bombay-mill-1941.jpg')),
   soap: entry('soap', 1131, 1542, pub('soap.jpg')),
   liquidSoap: entry('liquid-soap', 1200, 2024, src('liquid-soap.jpg')),
   laundryPowder: entry('laundry-powder', 1200, 801, src('laundry-powder.jpg')),
   jnpt: entry('jnpt', 1600, 900, pub('jnpt.jpg')),
   madras1996: entry('madras-port-1996', 1600, 1045, pub('madras-port-1996.jpg')),
+
+  // Product pictures from the GoodBiz division websites (no credit entry:
+  // they belong to the company). Listed by division.
+  pwLtPcc: entry('div/pw-lt-pcc-acb-incomers', 1536, 1024, null),
+  pwLtMcc: entry('div/pw-lt-mcc-drawout-feeders', 1536, 1024, null),
+  pwLtPlc: entry('div/pw-lt-plc-panel-hmi', 1536, 1024, null),
+  pwLtAts: entry('div/pw-lt-ats-changeover', 1536, 1024, null),
+  pwLtDb: entry('div/pw-lt-distribution-board', 1536, 1024, null),
+  pwTrOnan: entry('div/pw-transformer-oil-onan', 1536, 1024, null),
+  pwTrOnaf: entry('div/pw-transformer-power-onaf', 1536, 1024, null),
+  pwTrDry: entry('div/pw-transformer-dry-cast-resin', 1536, 1024, null),
+  pwEncModular: entry('div/pw-enc-modular-floor-two-bay', 1536, 1024, null),
+  pwEncWall: entry('div/pw-enc-wall-mount-steel', 1536, 1024, null),
+  pwEncJunction: entry('div/pw-enc-polycarbonate-junction-boxes', 1536, 1024, null),
+  pwEncKiosk: entry('div/pw-enc-outdoor-grp-kiosk', 1536, 1024, null),
+  pwBusbars: entry('div/pw-busbars-copper-supports', 1536, 1024, null),
+  pwInsulators: entry('div/pw-insulators-epoxy-shrouds', 1536, 1024, null),
+  pwTerminals: entry('div/pw-terminals-lugs-ducts', 1536, 1024, null),
+  agSouthIndianRice: entry('div/ag-south-indian-rice', 1600, 1200, null),
+  agNonBasmati: entry('div/ag-non-basmati-rice', 1600, 1200, null),
+  agBrokenRice: entry('div/ag-broken-rice', 1600, 1200, null),
+  agJaggery: entry('div/ag-jaggery', 1600, 1200, null),
+  agArecanut: entry('div/ag-arecanut', 1600, 1200, null),
+  agGroundnuts: entry('div/ag-groundnuts', 1600, 1200, null),
+  agCoconut: entry('div/ag-coconut-copra', 1200, 1200, null),
+  agGinger: entry('div/ag-ginger', 1600, 1200, null),
+  agTurmeric: entry('div/ag-turmeric', 1600, 1200, null),
+  hyToiletBathSoap: entry('div/hy-toilet-bath-soap', 1448, 1086, null),
+  hyHerbalSoap: entry('div/hy-herbal-ayurvedic-soap', 1448, 1086, null),
+  hyAntibacterialSoap: entry('div/hy-antibacterial-soap', 1448, 1086, null),
+  hyHotelSoap: entry('div/hy-hotel-guest-soap', 1448, 1086, null),
+  hyHandWash: entry('div/hy-liquid-hand-wash', 1255, 941, null),
+  hyBodyWash: entry('div/hy-body-wash-shower-gel', 1255, 941, null),
+  hyLaundryBar: entry('div/hy-laundry-soap-bar', 1448, 1086, null),
+  hyDetergentPowder: entry('div/hy-detergent-powder', 1448, 1086, null),
+  hyLiquidDetergent: entry('div/hy-liquid-detergent', 1448, 1086, null),
+  hyFabricSoftener: entry('div/hy-fabric-softener', 1448, 1086, null),
+  hyDishLiquid: entry('div/hy-dish-wash-liquid', 1255, 941, null),
+  hyDishBar: entry('div/hy-dish-wash-bar', 1255, 941, null),
+  hyFloorCleaner: entry('div/hy-floor-cleaner', 1255, 941, null),
+  hyPhenol: entry('div/hy-herbal-phenol', 1255, 941, null),
+  hyGlassCleaner: entry('div/hy-glass-cleaner', 1255, 941, null),
+  hyToiletBowl: entry('div/hy-toilet-bowl-cleaner', 1255, 941, null),
+  hyTileCleaner: entry('div/hy-bathroom-tile-cleaner', 1255, 941, null),
+  hyMultiSurface: entry('div/hy-multi-surface-cleaner', 1255, 941, null),
 };

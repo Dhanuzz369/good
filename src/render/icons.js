@@ -3,6 +3,7 @@
 const paths = {
   search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  external: '<path d="M14 5h5v5M19 5l-8 8M17 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4"/>',
   chevron: '<path d="m6 9 6 6 6-6"/>',
   chevronRight: '<path d="m9 6 6 6-6 6"/>',
   chevronLeft: '<path d="m15 6-6 6 6 6"/>',

@@ -103,10 +103,12 @@ export function initExpanders() {
 }
 
 export function initTabs() {
-  const list = document.querySelector('[data-tabs]');
-  if (!list) return;
+  document.querySelectorAll('[data-tabs]').forEach(initTabList);
+}
+
+function initTabList(list) {
   const tabs = [...list.querySelectorAll('[role=tab]')];
-  const select = (tab, fromKeyboard = false) => {
+  const select = (tab, fromKeyboard = false, animate = !fromKeyboard) => {
     tabs.forEach((t) => {
       const on = t === tab;
       t.classList.toggle('is-active', on);
@@ -117,7 +119,7 @@ export function initTabs() {
         panel.removeAttribute('data-inactive');
         panel.classList.remove('is-entering');
         // Keyboard-driven switches are instant; a click gets a short crossfade.
-        if (!fromKeyboard) {
+        if (animate) {
           void panel.offsetWidth;
           panel.classList.add('is-entering');
         }
@@ -134,6 +136,15 @@ export function initTabs() {
       select(tabs[(next + tabs.length) % tabs.length], true);
     });
   });
+  // A link to a panel (#agri, #fmcg ...) opens that tab and scrolls to it.
+  const fromHash = () => {
+    const tab = tabs.find((t) => `#${t.getAttribute('aria-controls')}` === location.hash);
+    if (!tab) return;
+    select(tab, false, false);
+    document.getElementById(tab.getAttribute('aria-controls')).scrollIntoView();
+  };
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
 }
 
 export function initCarousel() {

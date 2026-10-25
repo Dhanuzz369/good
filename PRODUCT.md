@@ -10,7 +10,7 @@ web
 
 Overseas importers, distributors, wholesalers and industrial procurement teams buying from India in bulk:
 electrical and industrial equipment buyers, agricultural commodity traders, FMCG and cleaning-products
-wholesalers, textile buyers, and chemical importers. They arrive with a product in mind (often a
+wholesalers and chemical importers. They arrive with a product in mind (often a
 specific chemical, crop or equipment type), want to confirm GoodBiz can source it, and send a
 specific enquiry with quantity, destination and specification.
 
@@ -30,7 +30,7 @@ matches, quotes and coordinates shipment.
 ## Operating Context
 
 - Five sectors: Electrical & Industrial Solutions; Agricultural Commodities & Food Products; FMCG &
-  Household Cleaning Products; Textiles & Fabrics; Chemicals & Industrial Solvents (this replaces the
+  Household Cleaning Products; Chemicals & Industrial Solvents (this replaces the
   former "Other Commodities & Industrial Raw Materials" category).
 - Buyers compare against other sourcing agents and marketplaces; they scan, search by product name and
   want a direct route to a quotation.

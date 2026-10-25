@@ -4,7 +4,7 @@ export const site = {
   name: 'GoodBiz Global',
   tagline: 'Indian sourcing. Global opportunities.',
   description:
-    'India-based merchant exporter and B2B sourcing partner for electrical equipment, agricultural commodities, cleaning products, textiles and industrial chemicals.',
+    'India-based merchant exporter and B2B sourcing partner for electrical equipment, agricultural commodities, soaps and cleaning products, and industrial chemicals.',
   // TODO: confirm the real enquiry mailbox. Enquiry forms open a pre-filled
   // email to this address until a form backend is connected.
   email: 'enquiries@goodbizglobal.com',

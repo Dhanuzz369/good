@@ -1,7 +1,7 @@
 # GoodBiz Global website
 
 Marketing site for GoodBiz Global, an India-based merchant exporter and B2B sourcing partner.
-Five division brands: GoodBiz Power Systems, Agro, Hygiene, Textiles and Chemicals.
+Four division brands: GoodBiz Power Systems, Agro, Hygiene and Chemicals. Products, ranges and registrations follow each division's own website (linked from every product).
 
 ## Run
 
@@ -19,7 +19,7 @@ npm run check      # validate product data (no prices, CAS, HSN, grades in data)
 - `src/render/` HTML templates rendered at build time by the Vite plugin in `vite.config.js`
 - `src/styles/` design tokens, components, sections, pages and the motion system (`motion.css`)
 - `src/js/` search, enquiry list, chemical catalogue, forms and UI behaviour
-- `index.html` homepage; `power-systems.html`, `agro.html`, `hygiene.html`, `textiles.html`, `chemicals.html` division pages
+- `index.html` homepage; `power-systems.html`, `agro.html`, `hygiene.html`, `chemicals.html` division pages
 - `PRODUCT.md`, `DESIGN.md` product and design-system records; `scripts/qa/` browser QA probes
 
 ## Before launch

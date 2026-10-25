@@ -1,12 +1,11 @@
-// Brand-style presentation of the five product ranges: the homepage's
+// Brand-style presentation of the four divisions: the homepage's
 // promotional banners and "Our brands" cards, and one page per range with
 // every product at its own anchor (the target of every product link).
 import { esc, html, addButton, plural } from './util.js';
 import { icon } from './icons.js';
 import { site } from '../data/site.js';
-import { sectors, chemicalGroups, defaultUnit, productHref } from '../data/products.js';
-import { textileSpec } from '../data/content.js';
-import { pic, bySector, isChem, productMedia, reviewFlag, tbc, telHref } from './sections.js';
+import { sectors, chemicalGroups, defaultUnit, productHref, registrations } from '../data/products.js';
+import { pic, bySector, isChem, productMedia, reviewFlag, tbc, telHref, rangesOf, regLogos, siteLink, twoTone } from './sections.js';
 import { brandMark, accentStyle } from './brand.js';
 
 const chemPricingHref = (c) => `index.html?chem=${encodeURIComponent(c.id)}#chem-enquiry`;
@@ -48,24 +47,28 @@ export const adBanners = () => html`
 </section>`;
 
 /* Division brands ------------------------------------------------------ */
-// Homepage gateway: one large tile per division; the whole tile opens it.
-const gatewayTile = (s, i) => {
+// Homepage gateway: one card per division, its ranges, its registrations,
+// and two ways in: the division page here, or the division's own website.
+const gatewayTile = (s) => {
   const items = bySector(s.id);
-  // Lead tiles name three products, the smaller ones two (one tidy line).
-  const named = items.filter((p) => p.featured).sort((x, y) => x.name.length - y.name.length).slice(0, i < 2 ? 3 : 2);
+  const ranges = rangesOf(s);
   return html`
-  <article class="gate${i < 2 ? ' gate--lead' : ''}" style="${accentStyle(s)}" aria-labelledby="gate-${s.id}" data-reveal>
-    ${pic(s.image, '', { cls: 'gate__img', sizes: i < 2 ? '(max-width: 760px) 100vw, 50vw' : '(max-width: 760px) 100vw, 33vw' })}
+  <article class="gate" style="${accentStyle(s)}" aria-labelledby="gate-${s.id}" data-reveal>
+    <a class="gate__media" href="${s.page}" tabindex="-1" aria-hidden="true">
+      ${pic(s.image, '', { cls: 'gate__img', sizes: '(max-width: 760px) 100vw, 50vw' })}
+      <span class="gate__count">${plural(items.length, 'product')}</span>
+    </a>
     <div class="gate__body">
-      ${brandMark(s, { size: i < 2 ? 'lg' : 'md', as: 'h3', id: `gate-${s.id}` })}
-      <p class="gate__range">${esc(s.name)}</p>
+      ${brandMark(s, { size: 'lg', as: 'h3', id: `gate-${s.id}` })}
       <p class="gate__pitch">${esc(s.pitch)}</p>
-      <ul class="gate__products" aria-label="Includes">${named.map((p) => `<li>${esc(p.name)}</li>`)}${
-        items.length > named.length ? `<li>+${items.length - named.length} more</li>` : ''
-      }</ul>
-      <a class="gate__go" href="${s.page}">Enter ${esc(s.brandShort)} ${icon('arrow')}<span class="visually-hidden">, ${esc(s.brand)}: ${esc(
-        plural(items.length, 'product line'),
-      )}</span></a>
+      <ul class="gate__ranges" aria-label="${esc(s.brandShort)} ranges">${ranges.map(
+        (r) => `<li><a href="${s.page}#${r.slug}">${esc(r.name)} <span>${r.list.length}</span></a></li>`,
+      )}</ul>
+      ${regLogos(s) ? `<div class="gate__regs"><p>Registered with</p>${regLogos(s)}</div>` : ''}
+      <div class="gate__actions">
+        <a class="gate__go" href="${s.page}">Enter ${esc(s.brandShort)} ${icon('arrow')}</a>
+        ${siteLink(s, 'gate__site')}
+      </div>
     </div>
   </article>`;
 };
@@ -75,13 +78,38 @@ export const brandGateway = () => html`
   <div class="section__head section__head--row">
     <div>
       <h2 class="section__title" id="brands-title">Our <span class="tone">brands</span></h2>
-      <p class="section__lead">Five divisions, one sourcing desk. Choose the one you buy from and see only its products.</p>
+      <p class="section__lead">Four divisions, one sourcing desk. Choose the one you buy from to see only its products, or visit its own website.</p>
     </div>
     <nav class="gateway__jump" aria-label="Go straight to a division">
       ${sectors.map((s) => `<a href="${s.page}" style="${accentStyle(s)}">${icon(s.icon)}${esc(s.brandShort)}</a>`)}
     </nav>
   </div>
   <div class="gateway__grid" data-reveal-group>${sectors.map(gatewayTile)}</div>
+</section>`;
+
+// Registrations named on the division websites, with the logos they show.
+export const registrationsSection = () => html`
+<section class="section regs" id="registrations" aria-labelledby="regs-title">
+  <div class="section__head">
+    <h2 class="section__title" id="regs-title">${twoTone('Registered', 'with')}</h2>
+    <p class="section__lead">Export bodies and regulators our divisions name on their own websites.</p>
+  </div>
+  <ul class="regs__grid">${registrations.map(
+    (r) => html`
+    <li class="reg">
+      <span class="reg__logo"><img src="${r.logo}" alt="" width="${r.w}" height="${r.h}" loading="lazy" decoding="async"></span>
+      <span class="reg__name">${esc(r.name)}</span>
+      <span class="reg__full">${esc(r.full)}</span>
+      <span class="reg__by">${sectors
+        .filter((s) => r.divisions.includes(s.id))
+        .map((s) => `<a href="${s.page}" style="${accentStyle(s)}">${esc(s.brandShort)}</a>`)
+        .join('')}</span>
+    </li>`,
+  )}</ul>
+  <p class="fineprint">As listed by ${sectors
+    .filter((s) => registrations.some((r) => r.divisions.includes(s.id)))
+    .map((s) => esc(s.brand))
+    .join(' and ')}. Ask us for registration details with your quotation.</p>
 </section>`;
 
 // Lower on the homepage: every product, filed under its division.
@@ -129,23 +157,20 @@ const productCard = (p) => {
             ? `<a class="btn btn--brand btn--sm" href="${chemPricingHref(p)}">Request pricing<span class="visually-hidden"> for ${esc(p.name)}</span></a>`
             : addButton(p.id, p.name, 'Add to enquiry', defaultUnit[p.sector])
         }
+        ${p.url ? `<a class="pcard__more" href="${p.url}" target="_blank" rel="noopener">Full details${icon('external')}<span class="visually-hidden"> for ${esc(p.name)} (opens in a new tab)</span></a>` : ''}
       </div>
     </div>
   </article>`;
 };
 
-const productGrid = (s) => {
-  const items = bySector(s.id);
-  if (s.id !== 'chemicals') return `<div class="pgrid">${items.map(productCard).join('')}</div>`;
-  return chemicalGroups
-    .filter((g) => items.some((c) => c.group === g.id))
+const productGrid = (s) =>
+  rangesOf(s)
     .map(
-      (g) => html`
-      <h2 class="range__group" id="group-${g.id}">${esc(g.name)}</h2>
-      <div class="pgrid">${items.filter((c) => c.group === g.id).map(productCard)}</div>`,
+      (r) => html`
+      <h2 class="range__group" id="${r.slug}">${esc(r.name)} <span>${r.list.length}</span></h2>
+      <div class="pgrid">${r.list.map(productCard)}</div>`,
     )
     .join('');
-};
 
 // Division switcher: the five brands as tabs under the header on range pages.
 const switcher = (current) => html`
@@ -173,19 +198,14 @@ ${switcher(s)}
     <div class="range-hero__actions">
       <a class="btn btn--white" href="#products">See the products</a>
       <a class="ad__link" href="index.html#quote">Request a quotation ${icon('arrow')}</a>
+      ${siteLink(s, 'ad__link')}
     </div>
+    ${regLogos(s) ? `<div class="range-hero__regs"><p>Registered with</p>${regLogos(s)}</div>` : ''}
   </div>
 </section>
 <section class="section range" id="products" aria-label="${esc(s.brand)} products">
   <ul class="range__facts">${s.facts.map((f) => `<li>${icon('shield')} ${esc(f)}</li>`)}</ul>
   ${productGrid(s)}
-  ${
-    s.id === 'textiles'
-      ? `<div class="spec-panel range__spec"><p class="spec-panel__title">To quote cloth, send us:</p><dl>${textileSpec
-          .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`)
-          .join('')}</dl></div>`
-      : ''
-  }
   ${s.id === 'chemicals' ? `<p class="range__more"><a class="link" href="index.html#chemicals">Search and filter the chemical catalogue</a></p>` : ''}
   <p class="fineprint">Offered for bulk-export enquiry, subject to confirmed supplier availability, an agreed specification and the rules of the destination country. Prices, grades, packaging and documents are confirmed on each written quotation.</p>
 </section>

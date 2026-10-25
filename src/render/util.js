@@ -18,9 +18,9 @@ export const html = (strings, ...values) =>
 
 // "Add to enquiry" control. Without script it is a plain link to the quote
 // form; the enquiry-list module upgrades it into a toggle.
-export const addButton = (id, name, label = 'Add to enquiry', unit = '') =>
+export const addButton = (id, name, label = 'Add to enquiry', unit = '', { named = false } = {}) =>
   `<a class="add" href="#quote" data-add="${esc(id)}" data-name="${esc(name)}"${
     unit ? ` data-unit="${esc(unit)}"` : ''
   }>${icon('plus', { cls: 'icon add__icon add__icon--plus' })}${icon('check', {
     cls: 'icon add__icon add__icon--check',
-  })}<span class="add__label">${label}</span></a>`;
+  })}<span class="add__label">${label}</span>${named ? `<span class="visually-hidden"> ${esc(name)}</span>` : ''}</a>`;

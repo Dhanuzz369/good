@@ -19,7 +19,7 @@ export const process = [
     verb: 'Match',
     icon: 'match',
     text: 'We approach Indian manufacturers, growers and processors able to meet that specification.',
-    image: 'loom',
+    image: 'controlPanel',
     position: '40% 50%',
   },
   {
@@ -77,17 +77,6 @@ export const markets = [
   'the United Kingdom', 'the Netherlands', 'Germany', 'the United States', 'Australia',
 ];
 
-export const textileSpec = [
-  ['Fibre', 'Cotton, viscose, polyester, blends, or the composition you need'],
-  ['Construction', 'Woven or knitted, with weave or knit structure'],
-  ['Weight', 'GSM, or ounces per square yard'],
-  ['Width', 'Usable width in centimetres or inches'],
-  ['Finish', 'Greige, bleached, dyed or printed, and any special finish'],
-  ['Colour', 'Shade reference, lab dip or swatch'],
-  ['Quantity', 'Metres or kilograms per colour, and delivery schedule'],
-  ['End use', 'Garments, home textiles, industrial or other'],
-];
-
 export const units = ['kg', 'Metric tonnes (MT)', 'Litres', 'Kilolitres (KL)', 'Pieces / units', 'Metres', '20 ft containers', '40 ft containers'];
 
 export const packagingOptions = [
@@ -98,7 +87,6 @@ export const packagingOptions = [
 export const gallery = [
   { image: 'chilliDrying', caption: 'Chillies drying in the sun', span: 'wide' },
   { image: 'jnpt', caption: 'Container cranes, JNPT, Navi Mumbai' },
-  { image: 'mill1941', caption: 'A Bombay textile mill, early 1940s' },
   { image: 'jaggery', caption: 'Jaggery at market' },
   { image: 'controlPanel', caption: 'Control panel under test' },
   { image: 'copperSulphate', caption: 'Copper sulphate crystals' },

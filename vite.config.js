@@ -62,6 +62,7 @@ const renderSections = () => ({
       .replace('<!-- @section ads -->', pages.adBanners())
       .replace('<!-- @section brands -->', pages.brandsSection())
       .replace('<!-- @section categories -->', s.categories())
+      .replace('<!-- @section registrations -->', pages.registrationsSection())
       .replace('<!-- @section facts -->', s.factsBand())
       .replace('<!-- @section chemicals -->', s.chemicalsSection())
       .replace('<!-- @section process -->', s.processSection())
@@ -91,7 +92,6 @@ export default defineConfig({
         powerSystems: resolve('power-systems.html'),
         agro: resolve('agro.html'),
         hygiene: resolve('hygiene.html'),
-        textiles: resolve('textiles.html'),
         chemicals: resolve('chemicals.html'),
       },
     },

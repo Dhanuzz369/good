@@ -3,10 +3,10 @@
 // delivered HTML (indexable, and usable before or without script).
 import { esc, html, addButton, plural } from './util.js';
 import { icon } from './icons.js';
-import { brandMark } from './brand.js';
+import { brandMark, accentStyle } from './brand.js';
 import { site, nav, legal } from '../data/site.js';
-import { sectors, products, chemicals, chemicalGroups, quickSearches, defaultUnit, productHref } from '../data/products.js';
-import { process, reasons, markets, textileSpec, units, packagingOptions, gallery } from '../data/content.js';
+import { sectors, products, chemicals, chemicalGroups, quickSearches, defaultUnit, productHref, registrations, registrationsFor } from '../data/products.js';
+import { process, reasons, markets, units, packagingOptions, gallery } from '../data/content.js';
 import { images } from '../data/images.js';
 
 export const pic = (key, alt, { cls = '', eager = false, pos = '', sizes = '100vw' } = {}) => {
@@ -112,13 +112,13 @@ export const hero = () => html`
   </div>
   <div class="hero__inner">
     <h1 class="hero__title" id="hero-title"><span class="tone">Indian Sourcing.</span> Global Opportunities.</h1>
-    <p class="hero__lead">One sourcing desk for electrical equipment, spices and food commodities, cleaning products, textiles and industrial chemicals, quoted for importers worldwide.</p>
+    <p class="hero__lead">One sourcing desk for electrical equipment, rice and spices, soaps and cleaning products, and industrial chemicals, quoted for importers worldwide.</p>
     <form class="search" role="search" action="#categories" data-search autocomplete="off">
       <label class="visually-hidden" for="product-search">Search products</label>
       <span class="search__icon">${icon('search')}</span>
       <input id="product-search" class="search__input" type="search" name="q" placeholder="Search ${
         products.length + chemicals.length
-      } products: SLES, Byadgi chilli, transformers…" role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list" data-search-input>
+      } products: SLES, turmeric, transformers…" role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list" data-search-input>
       <button class="btn btn--brand search__btn" type="submit">Search</button>
       <div class="search__results" id="search-results" role="region" aria-label="Search results" data-open="false" data-search-results></div>
       <p class="visually-hidden" aria-live="polite" data-search-status></p>
@@ -147,101 +147,101 @@ export const hero = () => html`
 </section>`;
 
 /* Categories: one row per sector ----------------------------------------- */
-const thumb = (p) => html`
-  <li class="thumb">
-    <div class="thumb__media">${productMedia(p, '(max-width: 760px) 40vw, 12vw')}</div>
-    <p class="thumb__name"><a href="${productHref(p)}">${esc(p.name)}</a></p>
-    ${productAction(p)}
-  </li>`;
-
-const fullList = (s) => {
-  const items = bySector(s.id);
-  if (s.id === 'chemicals') {
-    return html`
-      <ul class="full-list">
-        ${items.map((c) => `<li><span><strong><a href="${productHref(c)}">${esc(c.name)}</a></strong>${c.review ? reviewFlag : ''}<small>${esc(groupName(c.group))}</small></span>${pricingLink(c)}</li>`)}
-      </ul>
-      <p class="full-list__more"><a class="link" href="#chemicals">Open the chemical catalogue with search and filters</a></p>`;
+/* Categories we serve: one tab per division, its ranges as cards --------- */
+// A division's product ranges, in data order: [{ name, slug, list }].
+export const rangesOf = (s) => {
+  const ranges = new Map();
+  for (const p of bySector(s.id)) {
+    const name = isChem(p) ? chemicalGroups.find((g) => g.id === p.group)?.name : p.group || s.short;
+    if (!ranges.has(name)) ranges.set(name, []);
+    ranges.get(name).push(p);
   }
-  return html`
-    <ul class="full-list">
-      ${items.map(
-        (p) => html`<li><span><strong><a href="${productHref(p)}">${esc(p.name)}</a></strong>${
-          p.origin ? `<small>Main growing regions: ${esc(p.origin)}</small>` : p.group ? `<small>${esc(p.group)}</small>` : ''
-        }${p.note ? `<small class="full-list__note">${esc(p.note)}</small>` : ''}</span>${addButton(p.id, p.name, 'Add to enquiry', defaultUnit[p.sector])}</li>`,
-      )}
-    </ul>
-    ${s.id === 'agri' ? '<p class="full-list__more">Regions show where each crop is mainly grown in India; each quotation states the origin of the actual lot.</p>' : ''}`;
+  return [...ranges].map(([name, list]) => ({ name, slug: `range-${slugify(name)}`, list }));
+};
+export const slugify = (t) => t.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// The id each division's panel answers to (#agri, #fmcg ... from older links).
+export const catId = (s) => (s.id === 'chemicals' ? 'cat-chemicals' : s.id);
+
+// Registration logos a division names on its own website.
+export const regLogos = (s, cls = 'reg-logos') => {
+  const list = registrationsFor(s.id);
+  if (!list.length) return '';
+  return `<ul class="${cls}" aria-label="Registered with">${list
+    .map((r) => `<li title="${esc(r.full)}"><img src="${r.logo}" alt="${esc(r.name)}" width="${r.w}" height="${r.h}" loading="lazy" decoding="async"></li>`)
+    .join('')}</ul>`;
 };
 
-const alsoPanel = (list) => html`
-  <div class="also-panel">
-    <p class="spec-panel__title">Also enquire for</p>
-    <ul>${list.map(
-      (p) => `<li><span>${esc(p.name)}${p.review ? reviewFlag : ''}</span>${
-        isChem(p) ? pricingLink(p) : addButton(p.id, p.name, 'Add to enquiry', defaultUnit[p.sector])
-      }</li>`,
-    )}</ul>
-  </div>`;
+export const siteLink = (s, cls = 'site-link') =>
+  `<a class="${cls}" href="${s.site}" target="_blank" rel="noopener">${esc(s.brand)} website ${icon('external')}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
 
-const textileSpecPanel = () => html`
-  <div class="spec-panel">
-    <p class="spec-panel__title">To quote cloth, send us:</p>
-    <dl>${textileSpec.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`)}</dl>
-  </div>`;
-
-const categoryRow = (s) => {
-  const items = bySector(s.id);
-  // Thumbnails are photographs only, and never the photo already on the
-  // sector tile. Featured products without an honest photo are listed by name.
-  const picked = items.filter((p) => p.featured);
-  const featured = picked.filter((p) => p.image && p.image !== s.image).slice(0, 6);
-  const also = picked.filter((p) => !featured.includes(p));
-  const id = s.id === 'chemicals' ? 'cat-chemicals' : s.id;
+const rangeCard = (s, r) => {
+  const cover = r.list.find((p) => p.image) || r.list[0];
   return html`
-  <article class="cat" id="${id}" aria-labelledby="${id}-title" data-reveal>
-    <div class="cat__tile">
-      ${pic(s.image, s.imageAlt, { sizes: '(max-width: 760px) 100vw, 240px' })}
-      <div class="cat__tile-text">
-        ${brandMark(s, { size: 'sm', as: 'h3', id: `${id}-title` })}
-        <p class="cat__range">${esc(s.name)}</p>
-      </div>
-    </div>
-    <div class="cat__body">
-      <div class="cat__main${s.id === 'textiles' || also.length ? ' cat__main--split' : ''}" style="--thumbs:${featured.length};--split:minmax(0, ${featured.length}fr) minmax(260px, ${Math.max(6 - featured.length, 2)}fr)">
-        <ul class="cat__thumbs${featured.length < 4 ? ' cat__thumbs--few' : ''}">${featured.map(thumb)}</ul>
-        ${s.id === 'textiles' ? textileSpecPanel() : also.length ? alsoPanel(also) : ''}
-      </div>
-      <div class="cat__strip">
-        <ul class="cat__facts">
-          <li>${icon('list')} ${plural(items.length, 'product line')}</li>
-          ${s.facts.map((f) => `<li>${icon('shield')} ${esc(f)}</li>`)}
-        </ul>
-        <a class="cat__page" href="${s.page}">Enter ${esc(s.brandShort)} ${icon('arrow')}</a>
-        <button class="cat__more" type="button" aria-expanded="false" aria-controls="${id}-all" data-expand>View all ${items.length} ${icon('chevron')}</button>
-      </div>
-      <div class="cat__all" id="${id}-all" data-expand-panel><div class="cat__all-inner">${fullList(s)}</div></div>
+  <article class="rcard" aria-labelledby="${catId(s)}-${r.slug}">
+    <a class="rcard__media" href="${s.page}#${r.slug}" tabindex="-1" aria-hidden="true">${productMedia(cover, '(max-width: 640px) 80vw, (max-width: 1020px) 45vw, 300px')}</a>
+    <div class="rcard__body">
+      <h3 class="rcard__name" id="${catId(s)}-${r.slug}"><a href="${s.page}#${r.slug}">${esc(r.name)}</a> <span>${r.list.length}</span></h3>
+      <ul class="rcard__list">${r.list.map(
+        (p) => `<li><a href="${productHref(p)}">${esc(p.name)}</a>${
+          isChem(p) ? pricingLink(p, 'rcard__price') : addButton(p.id, p.name, 'Add', defaultUnit[p.sector], { named: true })
+        }</li>`,
+      )}</ul>
     </div>
   </article>`;
 };
 
+const categoryPanel = (s, i) => {
+  const ranges = rangesOf(s);
+  const id = catId(s);
+  return html`
+  <div class="catx__panel" role="tabpanel" id="${id}" aria-labelledby="${id}-tab" style="${accentStyle(s)}"${i === 0 ? '' : ' data-inactive'}>
+    <div class="catx__head">
+      <div class="catx__intro">
+        ${brandMark(s, { size: 'md' })}
+        <p class="catx__pitch">${esc(s.pitch)}</p>
+      </div>
+      <div class="catx__side">
+        <ul class="catx__facts">
+          <li>${icon('list')} ${plural(bySector(s.id).length, 'product')} in ${plural(ranges.length, 'range')}</li>
+          ${s.facts.map((f) => `<li>${icon('shield')} ${esc(f)}</li>`)}
+        </ul>
+        ${regLogos(s, 'reg-logos reg-logos--sm')}
+      </div>
+    </div>
+    <div class="catx__ranges" style="--cols:${ranges.length % 4 === 0 ? 4 : 3}">${ranges.map((r) => rangeCard(s, r))}</div>
+    <div class="catx__foot">
+      <a class="btn btn--brand catx__enter" href="${s.page}">Enter ${esc(s.brandShort)} ${icon('arrow')}</a>
+      ${s.id === 'chemicals' ? `<a class="link" href="#chemicals">Search the chemical catalogue</a>` : ''}
+      ${siteLink(s)}
+    </div>
+  </div>`;
+};
+
 export const categories = () => html`
-<section class="section categories" id="categories" aria-labelledby="categories-title">
+<section class="section categories catx" id="categories" aria-labelledby="categories-title">
   <div class="section__head">
     <h2 class="section__title" id="categories-title">${twoTone('Categories', 'we serve')}</h2>
-    <p class="section__lead">Five sectors sourced from Indian manufacturers, growers and processors. Add products to one enquiry as you browse.</p>
+    <p class="section__lead">Every range from our four divisions, as listed on each division’s own website. Pick a division, then add products to one enquiry.</p>
   </div>
-  <div class="cats">${sectors.map(categoryRow)}</div>
+  <div class="tabs catx__tabs" role="tablist" aria-label="Divisions" data-tabs>
+    ${sectors.map(
+      (s, i) =>
+        `<button class="tab catx__tab${i === 0 ? ' is-active' : ''}" type="button" role="tab" id="${catId(s)}-tab" aria-controls="${catId(s)}" aria-selected="${
+          i === 0
+        }" tabindex="${i === 0 ? 0 : -1}" style="${accentStyle(s)}">${icon(s.icon)}${esc(s.brandShort)} <span>${bySector(s.id).length}</span></button>`,
+    )}
+  </div>
+  ${sectors.map(categoryPanel)}
 </section>`;
 
 /* Facts band: verifiable portfolio facts only ----------------------------- */
 export const factsBand = () => html`
 <section class="facts" aria-label="Portfolio at a glance">
   <ul>
-    <li>${icon('globe')}<strong>5</strong><span>sectors, one sourcing desk</span></li>
-    <li>${icon('list')}<strong>${products.length}</strong><span>product lines across four sectors</span></li>
-    <li>${icon('drum')}<strong>${chemicals.length}</strong><span>chemicals, solvents and surfactants</span></li>
-    <li>${icon('flask')}<strong>${chemicalGroups.length}</strong><span>chemical groups: solvents, inorganics, surfactants</span></li>
+    <li>${icon('globe')}<strong>${sectors.length}</strong><span>divisions, one sourcing desk</span></li>
+    <li>${icon('list')}<strong>${products.length + chemicals.length}</strong><span>products across all four divisions</span></li>
+    <li>${icon('drum')}<strong>${chemicals.length}</strong><span>chemicals in ${chemicalGroups.length} groups: ${chemicalGroups.map((g) => g.short.toLowerCase()).join(', ')}</span></li>
+    <li>${icon('shield')}<strong>${registrations.length}</strong><span>export registrations named by our divisions</span></li>
   </ul>
 </section>`;
 
@@ -557,7 +557,7 @@ export const quote = () => html`
 export const footer = (credits = []) => html`
 <footer class="ftr">
   <div class="ftr__inner">
-    <p class="ftr__title">Explore Indian electrical, agricultural, FMCG, textile and chemical products</p>
+    <p class="ftr__title">Explore Indian electrical, agricultural, hygiene and chemical products</p>
     <div class="ftr__cols">
       ${sectors.map(
         (s) => html`
