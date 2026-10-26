@@ -118,7 +118,8 @@ export function initEnquiryList() {
       const label = el.querySelector('.add__label');
       const base = el.dataset.label || (el.dataset.label = label.textContent);
       label.textContent = on ? 'Added' : base;
-      el.setAttribute('aria-label', `${on ? 'Remove' : 'Add'} ${el.dataset.name} ${on ? 'from' : 'to'} enquiry list`);
+      // The spoken name starts with the visible label (WCAG 2.5.3); aria-pressed carries the state.
+      el.setAttribute('aria-label', `${label.textContent}: ${el.dataset.name}`);
     });
   };
 

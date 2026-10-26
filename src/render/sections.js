@@ -105,10 +105,10 @@ export const header = () => html`
 export const hero = () => html`
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="hero__media">
-    ${pic('port', 'Container ship alongside cranes at a port', { eager: true, pos: '40% 50%' })}
+    ${pic('port', 'Container ship alongside cranes at a port', { eager: true, pos: '40% 50%', sizes: '(max-width: 760px) 100vw, 60vw' })}
   </div>
   <div class="hero__inner">
-    <h1 class="hero__title" id="hero-title"><span class="tone">Indian Sourcing.</span> Global Opportunities.</h1>
+    <h1 class="hero__title" id="hero-title"><span class="hero__kicker">Merchant exporter from India</span> <span class="tone">Indian Sourcing.</span> Global Opportunities.</h1>
     <p class="hero__lead">One sourcing desk for electrical equipment, rice and spices, soaps and cleaning products, and industrial chemicals, quoted for importers worldwide.</p>
     <form class="search" role="search" action="#categories" data-search autocomplete="off">
       <label class="visually-hidden" for="product-search">Search products</label>

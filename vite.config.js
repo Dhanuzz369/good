@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'node:path';
+import { basename, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 // Load a render or data module. In dev, Vite's SSR loader tracks every file in
@@ -18,6 +18,10 @@ const renderSections = () => ({
     const s = await load('src/render/sections.js');
     const pages = await load('src/render/pages.js');
     const { sectors } = await load('src/data/products.js');
+    const seo = await load('src/render/seo.js');
+    // Head metadata for every page: '' is the homepage, otherwise the file name.
+    const file = basename(ctx.filename);
+    const withHead = (out) => seo.applyHead(out, file === 'index.html' ? '' : file);
 
     // Dev server only: ?data=worst|empty|one|huge swaps in a break-ui fixture
     // for this render and a small toggle is added to the page.
@@ -32,7 +36,7 @@ const renderSections = () => ({
               .map((n) => `<a href="?data=${n}"${(fixtureName || 'demo') === n ? ' aria-current="true"' : ''}>${n === 'huge' ? '400 rows' : n === 'one' ? '1' : n[0].toUpperCase() + n.slice(1)}</a>`)
               .join('')}</nav><style>.dev-data{position:fixed;z-index:999;left:50%;bottom:12px;translate:-50% 0;display:flex;gap:2px;padding:3px;border-radius:999px;background:#e5e7eb;font:500 12px system-ui}.dev-data a{padding:6px 10px;border-radius:999px;color:#111;text-decoration:none}.dev-data a[aria-current]{background:#fff;box-shadow:0 1px 2px #0002}</style></body>`,
           );
-    return devToggle(withFixture(fixtureName, () => render()));
+    return devToggle(withHead(withFixture(fixtureName, () => render())));
 
     function render() {
     // Range pages: same header and footer, with in-page links pointing home.
@@ -62,10 +66,15 @@ const renderSections = () => ({
       .replace('<!-- @section about -->', s.about())
       .replace('<!-- @section quote -->', s.quote());
 
-    // Credit exactly the pictures the page uses.
     out = out.replace('<!-- @section footer -->', s.footer());
     return out;
     }
+  },
+  // robots.txt and sitemap.xml, built from the same page list as the head tags.
+  async generateBundle() {
+    const seo = await import(pathToFileURL(resolve('src/render/seo.js')).href);
+    this.emitFile({ type: 'asset', fileName: 'robots.txt', source: seo.robotsTxt() });
+    this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: seo.sitemapXml(new Date().toISOString().slice(0, 10)) });
   },
 });
 

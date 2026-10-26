@@ -173,7 +173,8 @@ ${switcher(s)}
   ${pic(s.image, s.imageAlt, { cls: 'range-hero__img', eager: true })}
   <div class="range-hero__inner">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> ${icon('chevronRight')} <a href="index.html#brands">Our brands</a> ${icon('chevronRight')} <span aria-current="page">${esc(s.brand)}</span></nav>
-    ${brandMark(s, { size: 'xl', as: 'h1', id: 'range-title' })}
+    ${brandMark(s, { size: 'xl' })}
+    <h1 class="range-hero__title" id="range-title">${esc(s.h1)}</h1>
     <p class="range-hero__range">${esc(s.name)} · ${plural(items.length, 'product line')}</p>
     <p class="range-hero__text">${esc(s.pitch)}</p>
     <div class="range-hero__actions">

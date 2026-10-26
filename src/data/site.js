@@ -2,6 +2,13 @@
 // by GoodBiz Global before the site goes live.
 export const site = {
   name: 'GoodBiz Global',
+  // Production origin: canonical URLs, sitemap, social cards, structured data.
+  url: 'https://goodbizglobal.com',
+  // Homepage search snippet (title under 60 characters, description under 155).
+  seoTitle: 'Merchant Exporter from India | GoodBiz Global',
+  seoDescription:
+    'GoodBiz Global is a merchant exporter from India: electrical panels and transformers, rice and spices, soaps and detergents, and industrial chemicals.',
+  seoImage: 'port',
   tagline: 'Indian sourcing. Global opportunities.',
   description:
     'India-based merchant exporter and B2B sourcing partner for electrical equipment, agricultural commodities, soaps and cleaning products, and industrial chemicals.',

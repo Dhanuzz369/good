@@ -25,6 +25,10 @@
 export const sectors = [
   {
     id: 'electrical',
+    // Search snippet and page heading.
+    seoTitle: 'Electrical Equipment Exporter, India | GoodBiz Power Systems',
+    seoDescription: 'LT panels, MV switchgear and RMUs, transformers, breakers and enclosures from Indian manufacturers, matched to your grid. Request a quote.',
+    h1: 'Electrical panel, switchgear and transformer exporter from India',
     // Division brand: how buyers choose a range from the homepage.
     brand: 'GoodBiz Power Systems',
     brandShort: 'Power Systems',
@@ -46,6 +50,10 @@ export const sectors = [
   },
   {
     id: 'agri',
+    // Search snippet and page heading.
+    seoTitle: 'Rice, Spices & Jaggery Exporter from India | GoodBiz Agro',
+    seoDescription: 'Export rice, jaggery, arecanut, groundnuts, coconut, ginger and turmeric from South India, with the growing region stated for every lot.',
+    h1: 'Rice, spice and agro commodity exporter from India',
     brand: 'GoodBiz Agro',
     brandShort: 'Agro',
     accent: '#2f6b1f',
@@ -66,6 +74,10 @@ export const sectors = [
   },
   {
     id: 'fmcg',
+    // Search snippet and page heading.
+    seoTitle: 'Soap & Detergent Exporter from India | GoodBiz Hygiene',
+    seoDescription: 'Toilet soap, detergent powder, dish wash, floor cleaners and soap noodles exported from India, private label and mixed containers.',
+    h1: 'Soap, detergent and cleaning product exporter from India',
     brand: 'GoodBiz Hygiene',
     brandShort: 'Hygiene',
     accent: '#07707a',
@@ -86,6 +98,10 @@ export const sectors = [
   },
   {
     id: 'chemicals',
+    // Search snippet and page heading.
+    seoTitle: 'Industrial Chemicals Exporter from India | GoodBiz Chemicals',
+    seoDescription: 'Solvents, amines, inorganics and surfactants such as SLES, LABSA, IPA and caustic soda, exported from India. SDS available on request.',
+    h1: 'Industrial chemical and solvent exporter from India',
     brand: 'GoodBiz Chemicals',
     brandShort: 'Chemicals',
     accent: '#2c4a5a',
@@ -264,13 +280,13 @@ export const chemicals = [
 
 // Registrations each division names on its own website, with its logo.
 export const registrations = [
-  { id: 'fieo', name: 'FIEO', full: 'Federation of Indian Export Organisations', logo: 'images/registrations/fieo.png', w: 242, h: 240, divisions: ['agri', 'fmcg'] },
-  { id: 'apeda', name: 'APEDA', full: 'Agricultural and Processed Food Products Export Development Authority', logo: 'images/registrations/apeda.png', w: 208, h: 155, divisions: ['agri'] },
-  { id: 'spices-board', name: 'Spices Board India', full: 'Spices Board, Ministry of Commerce and Industry', logo: 'images/registrations/spices-board.png', w: 500, h: 150, divisions: ['agri'] },
-  { id: 'fssai', name: 'FSSAI', full: 'Food Safety and Standards Authority of India', logo: 'images/registrations/fssai.png', w: 234, h: 80, divisions: ['agri'] },
-  { id: 'dgft', name: 'DGFT (IEC)', full: 'Directorate General of Foreign Trade, Importer Exporter Code', logo: 'images/registrations/dgft.png', w: 553, h: 160, divisions: ['agri'] },
-  { id: 'cdb', name: 'Coconut Development Board', full: 'Coconut Development Board, Government of India', logo: 'images/registrations/cdb.png', w: 103, h: 160, divisions: ['agri'] },
-  { id: 'chemexcil', name: 'CHEMEXCIL', full: 'Basic Chemicals, Cosmetics & Dyes Export Promotion Council', logo: 'images/registrations/chemexcil.png', w: 353, h: 240, divisions: ['fmcg'] },
+  { id: 'fieo', name: 'FIEO', full: 'Federation of Indian Export Organisations', logo: 'images/registrations/fieo.webp', w: 138, h: 136, divisions: ['agri', 'fmcg'] },
+  { id: 'apeda', name: 'APEDA', full: 'Agricultural and Processed Food Products Export Development Authority', logo: 'images/registrations/apeda.webp', w: 183, h: 136, divisions: ['agri'] },
+  { id: 'spices-board', name: 'Spices Board India', full: 'Spices Board, Ministry of Commerce and Industry', logo: 'images/registrations/spices-board.webp', w: 454, h: 136, divisions: ['agri'] },
+  { id: 'fssai', name: 'FSSAI', full: 'Food Safety and Standards Authority of India', logo: 'images/registrations/fssai.webp', w: 234, h: 80, divisions: ['agri'] },
+  { id: 'dgft', name: 'DGFT (IEC)', full: 'Directorate General of Foreign Trade, Importer Exporter Code', logo: 'images/registrations/dgft.webp', w: 471, h: 136, divisions: ['agri'] },
+  { id: 'cdb', name: 'Coconut Development Board', full: 'Coconut Development Board, Government of India', logo: 'images/registrations/cdb.webp', w: 88, h: 136, divisions: ['agri'] },
+  { id: 'chemexcil', name: 'CHEMEXCIL', full: 'Basic Chemicals, Cosmetics & Dyes Export Promotion Council', logo: 'images/registrations/chemexcil.webp', w: 201, h: 136, divisions: ['fmcg'] },
 ];
 export const registrationsFor = (sectorId) => registrations.filter((r) => r.divisions.includes(sectorId));
 

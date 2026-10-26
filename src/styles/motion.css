@@ -140,9 +140,11 @@ a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipul
 
 /* Hero: one choreographed entrance, first load only. ----------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  .hero__title, .hero__lead, .hero .search, .hero .chips, .hero__cards {
+  .hero__lead, .hero .search, .hero .chips, .hero__cards {
     animation: enter var(--dur-slow) var(--ease-out) both;
   }
+  /* The headline is the page's largest paint: it rises but never starts invisible. */
+  .hero__title { animation: rise var(--dur-slow) var(--ease-out) both; }
   .hero__lead { animation-delay: 70ms; }
   .hero .search { animation-delay: 140ms; }
   .hero .chips { animation-delay: 210ms; }
@@ -150,6 +152,7 @@ a, button, summary, label, [role='button'], [role='tab'] { touch-action: manipul
   .hero__media img { animation: settle 1100ms var(--ease-out) both; }
 }
 @keyframes enter { from { opacity: 0; transform: translateY(14px); } }
+@keyframes rise { from { transform: translateY(14px); } }
 @keyframes settle { from { opacity: 0; transform: scale(1.03); } }
 
 /* Scroll reveals: category rows and brand cards only. -------------------- */

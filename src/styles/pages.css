@@ -127,6 +127,7 @@
 .switcher a[aria-current='page'] .icon { color: var(--white); }
 .division .range-hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--accent); }
 .division .range-hero .bmark__sign { box-shadow: 0 0 0 3px rgb(var(--veil-rgb) / 0.9); }
+.range-hero__title { font-size: clamp(1.375rem, 1.1rem + 1.1vw, 2rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; max-width: 26ch; color: var(--white); overflow-wrap: anywhere; }
 .range-hero__range { font-weight: 600; color: var(--on-dark-muted); }
 .division .btn--brand { background: var(--accent); box-shadow: none; }
 @media (hover: hover) and (pointer: fine) { .division .btn--brand:hover { background: var(--ink); } }
