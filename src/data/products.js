@@ -34,7 +34,7 @@ export const sectors = [
     brandShort: 'Power Systems',
     accent: '#1957a6',
     accentSoft: '#e7eff9',
-    site: 'https://goodbizelec-navy.vercel.app/',
+    site: 'https://www.goodbizpower.com/',
     pitch: 'LT panels, MV switchgear and RMUs, transformers, breakers, enclosures and panel parts, matched to your grid.',
     name: 'Electrical & Power Equipment',
     short: 'Electrical',
@@ -58,7 +58,7 @@ export const sectors = [
     brandShort: 'Agro',
     accent: '#2f6b1f',
     accentSoft: '#eaf4e4',
-    site: 'https://goodbizagro.vercel.app/',
+    site: 'https://www.goodbizagro.com/',
     pitch: 'Rice, jaggery, arecanut, groundnuts, coconut and copra, ginger and turmeric from South India’s growing belts.',
     name: 'Agricultural Commodities & Spices',
     short: 'Agricultural',
@@ -82,7 +82,7 @@ export const sectors = [
     brandShort: 'Hygiene',
     accent: '#07707a',
     accentSoft: '#e2f4f5',
-    site: 'https://soap-gules.vercel.app/',
+    site: 'https://www.goodbizhygiene.com/',
     pitch: 'Bath soaps, laundry and kitchen care, surface cleaners and soap-making raw materials, private label welcome.',
     name: 'Soaps, Detergents & Cleaning Products',
     short: 'Hygiene',
@@ -106,7 +106,7 @@ export const sectors = [
     brandShort: 'Chemicals',
     accent: '#2c4a5a',
     accentSoft: '#e6edf1',
-    site: 'https://chem-phi.vercel.app/',
+    site: 'https://www.goodbizchemicals.com/',
     pitch: 'Solvents, amines, inorganics and surfactants for manufacturers, with an SDS on request for every product.',
     name: 'Industrial Chemicals & Solvents',
     short: 'Chemicals',
@@ -126,9 +126,9 @@ export const sectors = [
 const P = (sector, group, list) =>
   list.map(([id, name, extra = {}]) => ({ id, sector, group, name, ...extra }));
 
-const agroUrl = (slug) => `https://goodbizagro.vercel.app/products/${slug}`;
-const hyUrl = (slug) => `https://soap-gules.vercel.app/products/${slug}/`;
-const pwUrl = (slug) => `https://goodbizelec-navy.vercel.app/products/${slug}`;
+const agroUrl = (slug) => `https://www.goodbizagro.com/products/${slug}`;
+const hyUrl = (slug) => `https://www.goodbizhygiene.com/products/${slug}/`;
+const pwUrl = (slug) => `https://www.goodbizpower.com/products/${slug}`;
 const riceNote = 'Only where Indian export policy permits it at the time of order.';
 
 export const products = [
@@ -241,7 +241,7 @@ export const chemicalGroups = [
   { id: 'surfactants', name: 'Surfactants', short: 'Surfactants' },
 ];
 
-const chemUrl = (slug) => `https://chem-phi.vercel.app/products/${slug}`;
+const chemUrl = (slug) => `https://www.goodbizchemicals.com/products/${slug}`;
 const C = (group, list) =>
   list.map(([id, name, use, extra = {}]) => ({ id, group, name, use, url: chemUrl(extra.slug || id), ...extra }));
 

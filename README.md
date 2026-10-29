@@ -28,4 +28,4 @@ npm run check      # validate product data (no prices, CAS, HSN, grades in data)
 - Add the registered address, business hours and reply time in `src/data/site.js`.
 - Set `formEndpoint` in `src/data/site.js` to send enquiries to a form service or CRM (until then forms open a pre-filled email).
 - Confirm the target-markets list and the chemical names flagged `review: true` in `src/data/products.js`.
-- Product pictures come from the four division websites. The few other photographs on the page are CC0 or public domain, so no on-page credit is needed (sources in `source-images/credits.json`). Before adding a photo whose licence requires attribution (CC BY, CC BY-SA), add a credit back to the footer.
+- Product pictures come from the four division websites (goodbizpower.com, goodbizagro.com, goodbizhygiene.com, goodbizchemicals.com). The few other photographs on the page are CC0 or public domain, so no on-page credit is needed (sources in `source-images/credits.json`). Before adding a photo whose licence requires attribution (CC BY, CC BY-SA), add a credit back to the footer.

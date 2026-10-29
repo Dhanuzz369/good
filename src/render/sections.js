@@ -168,8 +168,10 @@ export const regLogos = (s, cls = 'reg-logos') => {
     .join('')}</ul>`;
 };
 
+// A division's own website, named by its domain (e.g. goodbizagro.com).
+export const siteDomain = (s) => new URL(s.site).hostname.replace(/^www\./, '');
 export const siteLink = (s, cls = 'site-link') =>
-  `<a class="${cls}" href="${s.site}" target="_blank" rel="noopener">${esc(s.brand)} website ${icon('external')}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
+  `<a class="${cls}" href="${s.site}" target="_blank" rel="noopener"><span class="visually-hidden">${esc(s.brand)} website: </span>${siteDomain(s)} ${icon('external')}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
 
 // Each range card's cover: its first picture not already used by an earlier range.
 const rangeCard = (s, r, used = new Set()) => {

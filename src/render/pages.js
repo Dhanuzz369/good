@@ -7,6 +7,7 @@ import { site } from '../data/site.js';
 import { sectors, chemicalGroups, defaultUnit, productHref, registrations } from '../data/products.js';
 import { pic, bySector, isChem, productMedia, telHref, rangesOf, regLogos, siteLink } from './sections.js';
 import { brandMark, accentStyle } from './brand.js';
+import { faqs } from './seo.js';
 
 const chemPricingHref = (c) => `index.html?chem=${encodeURIComponent(c.id)}#chem-enquiry`;
 
@@ -207,3 +208,14 @@ ${switcher(s)}
 </section>
 </div>`;
 };
+
+/* Questions buyers ask: direct answers, also published in llms.txt ------- */
+export const faqSection = () => html`
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+  <div class="section__head">
+    <h2 class="section__title" id="faq-title">Questions buyers ask</h2>
+  </div>
+  <ul class="reasons__list faq__list">
+    ${faqs().map((f) => `<li><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></li>`)}
+  </ul>
+</section>`;

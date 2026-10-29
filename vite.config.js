@@ -62,6 +62,7 @@ const renderSections = () => ({
       .replace('<!-- @section chemicals -->', s.chemicalsSection())
       .replace('<!-- @section process -->', s.processSection())
       .replace('<!-- @section reasons -->', s.reasonsSection())
+      .replace('<!-- @section faq -->', pages.faqSection())
       .replace('<!-- @section markets -->', s.marketsSection())
       .replace('<!-- @section about -->', s.about())
       .replace('<!-- @section quote -->', s.quote());
@@ -74,6 +75,7 @@ const renderSections = () => ({
   async generateBundle() {
     const seo = await import(pathToFileURL(resolve('src/render/seo.js')).href);
     this.emitFile({ type: 'asset', fileName: 'robots.txt', source: seo.robotsTxt() });
+    this.emitFile({ type: 'asset', fileName: 'llms.txt', source: seo.llmsTxt() });
     this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: seo.sitemapXml(new Date().toISOString().slice(0, 10)) });
   },
 });
