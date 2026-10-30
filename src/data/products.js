@@ -286,7 +286,7 @@ export const registrations = [
   { id: 'fssai', name: 'FSSAI', full: 'Food Safety and Standards Authority of India', logo: 'images/registrations/fssai.webp', w: 263, h: 136, divisions: ['agri'] },
   { id: 'cdb', name: 'Coconut Development Board', full: 'Coconut Development Board, Government of India', logo: 'images/registrations/cdb.webp', w: 88, h: 136, divisions: ['agri'] },
   { id: 'eepc', name: 'EEPC India', full: 'Engineering Export Promotion Council of India', logo: 'images/registrations/eepc.webp', w: 441, h: 136, divisions: ['electrical'] },
-  { id: 'chemexcil', name: 'CHEMEXCIL', full: 'Basic Chemicals, Cosmetics & Dyes Export Promotion Council', logo: 'images/registrations/chemexcil.webp', w: 201, h: 136, divisions: ['fmcg'] },
+  { id: 'chemexcil', name: 'CHEMEXCIL', full: 'Basic Chemicals, Cosmetics & Dyes Export Promotion Council', logo: 'images/registrations/chemexcil.webp', w: 201, h: 136, divisions: ['fmcg', 'chemicals'] },
 ];
 export const registrationsFor = (sectorId) => registrations.filter((r) => r.divisions.includes(sectorId));
 
