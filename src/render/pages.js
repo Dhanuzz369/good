@@ -93,7 +93,7 @@ export const registrationsSection = () => html`
 <section class="section regs" id="registrations" aria-labelledby="regs-title">
   <div class="section__head">
     <h2 class="section__title" id="regs-title">Registered with</h2>
-    <p class="section__lead">Export bodies and regulators our divisions name on their own websites.</p>
+    <p class="section__lead">Export bodies and regulators our divisions are registered with.</p>
   </div>
   <ul class="regs__grid">${registrations.map(
     (r) => html`
@@ -107,10 +107,9 @@ export const registrationsSection = () => html`
         .join('')}</span>
     </li>`,
   )}</ul>
-  <p class="fineprint">As listed by ${sectors
-    .filter((s) => registrations.some((r) => r.divisions.includes(s.id)))
-    .map((s) => esc(s.brand))
-    .join(' and ')}. Ask us for registration details with your quotation.</p>
+  <p class="fineprint">Held by ${new Intl.ListFormat('en', { type: 'conjunction' }).format(
+    sectors.filter((s) => registrations.some((r) => r.divisions.includes(s.id))).map((s) => esc(s.brand)),
+  )}. Ask us for registration details with your quotation.</p>
 </section>`;
 
 // Compact division tile for "Other GoodBiz brands" on a range page.

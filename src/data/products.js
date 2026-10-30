@@ -278,14 +278,14 @@ export const chemicals = [
   // stands in for every chemical without a photograph of its own.
 ].map(({ slug, ...c }) => ({ image: 'chMolecule', ...c }));
 
-// Registrations each division names on its own website, with its logo.
+// Export registrations held by each division, with the body's logo.
 export const registrations = [
   { id: 'fieo', name: 'FIEO', full: 'Federation of Indian Export Organisations', logo: 'images/registrations/fieo.webp', w: 138, h: 136, divisions: ['agri', 'fmcg'] },
   { id: 'apeda', name: 'APEDA', full: 'Agricultural and Processed Food Products Export Development Authority', logo: 'images/registrations/apeda.webp', w: 183, h: 136, divisions: ['agri'] },
   { id: 'spices-board', name: 'Spices Board India', full: 'Spices Board, Ministry of Commerce and Industry', logo: 'images/registrations/spices-board.webp', w: 454, h: 136, divisions: ['agri'] },
-  { id: 'fssai', name: 'FSSAI', full: 'Food Safety and Standards Authority of India', logo: 'images/registrations/fssai.webp', w: 234, h: 80, divisions: ['agri'] },
-  { id: 'dgft', name: 'DGFT (IEC)', full: 'Directorate General of Foreign Trade, Importer Exporter Code', logo: 'images/registrations/dgft.webp', w: 471, h: 136, divisions: ['agri'] },
+  { id: 'fssai', name: 'FSSAI', full: 'Food Safety and Standards Authority of India', logo: 'images/registrations/fssai.webp', w: 263, h: 136, divisions: ['agri'] },
   { id: 'cdb', name: 'Coconut Development Board', full: 'Coconut Development Board, Government of India', logo: 'images/registrations/cdb.webp', w: 88, h: 136, divisions: ['agri'] },
+  { id: 'eepc', name: 'EEPC India', full: 'Engineering Export Promotion Council of India', logo: 'images/registrations/eepc.webp', w: 441, h: 136, divisions: ['electrical'] },
   { id: 'chemexcil', name: 'CHEMEXCIL', full: 'Basic Chemicals, Cosmetics & Dyes Export Promotion Council', logo: 'images/registrations/chemexcil.webp', w: 201, h: 136, divisions: ['fmcg'] },
 ];
 export const registrationsFor = (sectorId) => registrations.filter((r) => r.divisions.includes(sectorId));
