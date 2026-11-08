@@ -5,7 +5,7 @@ import { esc, html, addButton, plural } from './util.js';
 import { icon } from './icons.js';
 import { brandMark, accentStyle } from './brand.js';
 import { site, nav, legal } from '../data/site.js';
-import { sectors, products, chemicals, chemicalGroups, quickSearches, defaultUnit, productHref, registrations, registrationsFor } from '../data/products.js';
+import { sectors, groupBrands, products, chemicals, chemicalGroups, quickSearches, defaultUnit, productHref, registrations, registrationsFor } from '../data/products.js';
 import { process, reasons, markets, units, packagingOptions } from '../data/content.js';
 import { images } from '../data/images.js';
 
@@ -76,6 +76,9 @@ export const header = () => html`
                   bySector(s.id).length,
                   'line',
                 )}</small></a></li>`,
+              )}
+              ${groupBrands.map(
+                (g) => `<li><a href="${g.site}" target="_blank" rel="noopener">${brandMark(g, { size: 'sm' })}<small>${esc(g.tagline)} · ${siteDomain(g)}<span class="visually-hidden"> (opens in a new tab)</span></small></a></li>`,
               )}
             </ul>
           </div>
@@ -524,7 +527,7 @@ export const quote = () => html`
   </div>
 </section>`;
 
-/* Footer: company line, the four divisions, then legal ------------------ */
+/* Footer: company line, divisions and group companies, then legal ----- */
 export const footer = () => html`
 <footer class="ftr">
   <div class="ftr__inner">
@@ -546,6 +549,12 @@ export const footer = () => html`
         <li style="${accentStyle(s)}">
           <a class="ftr__division" href="${s.page}">${brandMark(s, { size: 'sm' })}<span>${plural(bySector(s.id).length, 'product')}</span></a>
           ${siteLink(s, 'ftr__site')}
+        </li>`,
+      )}${groupBrands.map(
+        (g) => html`
+        <li class="ftr__group" style="${accentStyle(g)}">
+          <span class="ftr__division">${brandMark(g, { size: 'sm' })}<span>${esc(g.tagline)}</span></span>
+          ${siteLink(g, 'ftr__site')}
         </li>`,
       )}</ul>
     </nav>

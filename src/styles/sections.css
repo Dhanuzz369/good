@@ -305,6 +305,8 @@
 .ftr__divisions ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid rgb(var(--veil-rgb) / 0.18); }
 .ftr__divisions li { display: grid; gap: 4px; align-content: start; padding: 20px 20px 4px 0; min-width: 0; }
 .ftr__divisions li + li { padding-left: 20px; border-left: 1px solid rgb(var(--veil-rgb) / 0.18); }
+/* A group company spans the row under the four divisions */
+.ftr__divisions li.ftr__group { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; padding-left: 0; border-left: 0; border-top: 1px solid rgb(var(--veil-rgb) / 0.18); }
 .ftr__division { display: grid; gap: 8px; justify-items: start; text-decoration: none; padding: 4px 0; }
 .ftr__division .bmark { color: var(--white); }
 .ftr__division > span { font-size: var(--fs-small); color: var(--on-dark-muted); }

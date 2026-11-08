@@ -82,7 +82,7 @@
 .gate__ranges span { color: var(--accent); font-weight: 700; }
 @media (hover: hover) and (pointer: fine) { .gate__ranges a:hover { background: var(--accent); color: var(--white); } .gate__ranges a:hover span { color: var(--white); } }
 .gate__regs { display: grid; gap: 8px; }
-.gate__regs > p, .range-hero__regs > p { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.gate__regs > p, .range-hero__regs > p, .gate__eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .gate__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: auto; padding-top: 4px; }
 .gate__go {
   display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 10px 20px; border-radius: var(--pill);
@@ -90,6 +90,7 @@
 }
 .gate__go .icon { width: 18px; height: 18px; }
 .gate__site { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: var(--fs-small); font-weight: 700; color: var(--accent); }
+.gate--group { grid-column: 1 / -1; grid-template-rows: auto; }
 @media (max-width: 860px) { .gateway__grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 640px) {
   .gateway { padding-top: calc(var(--section-gap) + 24px); }

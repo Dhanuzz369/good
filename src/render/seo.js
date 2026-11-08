@@ -3,10 +3,11 @@
 // Also builds robots.txt and sitemap.xml from the same page list.
 import { esc } from './util.js';
 import { site } from '../data/site.js';
-import { sectors, products, chemicals } from '../data/products.js';
+import { sectors, groupBrands, products, chemicals } from '../data/products.js';
 import { images } from '../data/images.js';
 
 const abs = (path = '') => `${site.url}/${path}`;
+const domain = (s) => new URL(s.site).hostname.replace(/^www\./, '');
 const bySector = (id) => (id === 'chemicals' ? chemicals : products.filter((p) => p.sector === id));
 // JSON-LD inside <script>: never let a value close the tag.
 const jsonLd = (data) => `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
@@ -22,11 +23,14 @@ const organization = () => ({
   ...(site.phone ? { telephone: site.phone } : {}),
   address: { '@type': 'PostalAddress', addressCountry: 'IN', ...(site.address ? { streetAddress: site.address } : {}) },
   areaServed: 'Worldwide',
-  knowsAbout: ['Merchant export from India', 'Electrical equipment', 'Agricultural commodities', 'Soaps and detergents', 'Industrial chemicals'],
-  // The four division websites are this organisation's own sites.
-  sameAs: sectors.map((s) => s.site),
+  knowsAbout: ['Merchant export from India', 'Electrical equipment', 'Agricultural commodities', 'Soaps and detergents', 'Industrial chemicals', 'Garments'],
+  // The four division websites and the group companies' websites are this organisation's own sites.
+  sameAs: [...sectors, ...groupBrands].map((s) => s.site),
   ...(site.phone ? { contactPoint: { '@type': 'ContactPoint', telephone: site.phone, contactType: 'sales', availableLanguage: 'English' } } : {}),
-  department: sectors.map((s) => ({ '@type': 'Organization', '@id': `${s.site}#organization`, name: s.brand, url: s.site, description: s.pitch, subjectOf: { '@type': 'WebPage', url: abs(s.page) } })),
+  department: [
+    ...sectors.map((s) => ({ '@type': 'Organization', '@id': `${s.site}#organization`, name: s.brand, url: s.site, description: s.pitch, subjectOf: { '@type': 'WebPage', url: abs(s.page) } })),
+    ...groupBrands.map((g) => ({ '@type': 'Organization', '@id': g.schemaId, name: g.brand, url: g.site, description: g.pitch })),
+  ],
 });
 
 // Short, factual answers to the questions buyers and answer engines ask.
@@ -35,7 +39,7 @@ const organization = () => ({
 export const faqs = () => [
   {
     q: 'What does GoodBiz Global export from India?',
-    a: `Four product divisions: ${sectors.map((s) => `${s.brand} (${s.tagline.toLowerCase()})`).join(', ')}. In all, ${products.length + chemicals.length} products are open for enquiry.`,
+    a: `Four product divisions: ${sectors.map((s) => `${s.brand} (${s.tagline.toLowerCase()})`).join(', ')}. In all, ${products.length + chemicals.length} products are open for enquiry.${groupBrands.map((g) => ` The group also runs ${g.brand} (${domain(g)}) for ${g.pitch[0].toLowerCase()}${g.pitch.slice(1)}`).join('')}`,
   },
   {
     q: 'Is GoodBiz Global a manufacturer?',
@@ -55,7 +59,7 @@ export const faqs = () => [
   },
   {
     q: 'Where can I see each division in detail?',
-    a: `Each division has its own website: ${sectors.map((s) => `${s.brand} at ${new URL(s.site).hostname.replace(/^www\./, '')}`).join(', ')}.`,
+    a: `Each division has its own website: ${sectors.map((s) => `${s.brand} at ${domain(s)}`).join(', ')}.${groupBrands.map((g) => ` The group company ${g.brand} is at ${domain(g)}.`).join('')}`,
   },
 ];
 
@@ -172,7 +176,7 @@ export const llmsTxt = () => {
     const items = bySector(s.id);
     return `## ${s.brand}\n\n${s.pitch}\n\n- Website: ${s.site}\n- Page on this site: ${abs(s.page)}\n- Products (${items.length}): ${items.map((p) => p.name).join('; ')}\n`;
   };
-  return `# ${site.name}\n\n> ${site.seoDescription}\n\n${site.name} is an India-based merchant exporter and B2B sourcing partner. It does not manufacture; it matches each enquiry to Indian manufacturers, growers and processors, agrees the specification, quotes in writing and coordinates shipment. No prices are published: every quotation depends on grade, volume, packing and destination.\n\n- Website: ${abs()}\n${site.phone ? `- Phone: ${site.phone}\n` : ''}- Request a quotation: ${abs('#quote')}\n\n${sectors.map(line).join('\n')}\n## Questions buyers ask\n\n${faqs().map((f) => `### ${f.q}\n\n${f.a}\n`).join('\n')}`;
+  return `# ${site.name}\n\n> ${site.seoDescription}\n\n${site.name} is an India-based merchant exporter and B2B sourcing partner. It does not manufacture; it matches each enquiry to Indian manufacturers, growers and processors, agrees the specification, quotes in writing and coordinates shipment. No prices are published: every quotation depends on grade, volume, packing and destination.\n\n- Website: ${abs()}\n${site.phone ? `- Phone: ${site.phone}\n` : ''}- Request a quotation: ${abs('#quote')}\n\n${sectors.map(line).join('\n')}\n${groupBrands.map((g) => `## ${g.brand} (GoodBiz group company)\n\n${g.pitch}\n\n- Website: ${g.site}\n`).join('\n')}\n## Questions buyers ask\n\n${faqs().map((f) => `### ${f.q}\n\n${f.a}\n`).join('\n')}`;
 };
 
 export const sitemapXml = (lastmod) =>

@@ -4,7 +4,7 @@
 import { esc, html, addButton, plural } from './util.js';
 import { icon } from './icons.js';
 import { site } from '../data/site.js';
-import { sectors, chemicalGroups, defaultUnit, productHref, registrations } from '../data/products.js';
+import { sectors, groupBrands, chemicalGroups, defaultUnit, productHref, registrations } from '../data/products.js';
 import { pic, bySector, isChem, productMedia, telHref, rangesOf, regLogos, siteLink } from './sections.js';
 import { brandMark, accentStyle } from './brand.js';
 import { faqs } from './seo.js';
@@ -74,6 +74,17 @@ const gatewayTile = (s) => {
   </article>`;
 };
 
+// A group company: no page or products on this site, so its card points to its own website.
+const groupTile = (g) => html`
+  <article class="gate gate--group" style="${accentStyle(g)}" aria-labelledby="gate-${g.id}" data-reveal>
+    <div class="gate__body">
+      <p class="gate__eyebrow">Also in the GoodBiz group</p>
+      ${brandMark(g, { size: 'lg', as: 'h3', id: `gate-${g.id}` })}
+      <p class="gate__pitch">${esc(g.pitch)}</p>
+      <div class="gate__actions">${siteLink(g, 'gate__go')}</div>
+    </div>
+  </article>`;
+
 export const brandGateway = () => html`
 <section class="section gateway" id="brands" aria-labelledby="brands-title">
   <div class="section__head section__head--row">
@@ -85,7 +96,7 @@ export const brandGateway = () => html`
       ${sectors.map((s) => `<a href="${s.page}" style="${accentStyle(s)}">${icon(s.icon)}${esc(s.brandShort)}</a>`)}
     </nav>
   </div>
-  <div class="gateway__grid" data-reveal-group>${sectors.map(gatewayTile)}</div>
+  <div class="gateway__grid" data-reveal-group>${sectors.map(gatewayTile)}${groupBrands.map(groupTile)}</div>
 </section>`;
 
 // Registrations named on the division websites, with the logos they show.

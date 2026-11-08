@@ -122,6 +122,25 @@ export const sectors = [
   },
 ];
 
+// Group companies with their own website and enquiry desk (no products or page
+// on this site). Shown beside the divisions in "Our brands", the header menu,
+// the footer, the Organization schema, the FAQ and llms.txt.
+export const groupBrands = [
+  {
+    id: 'apparels',
+    brand: 'GoodBiz Apparels',
+    brandShort: 'Apparels',
+    accent: '#7d3c5a',
+    accentSoft: '#f6eaf0',
+    site: 'https://www.gbizclothing.com/',
+    // The @id the apparels site gives its own Organization, so both graphs name one entity.
+    schemaId: 'https://www.gbizclothing.com/#org',
+    tagline: 'Knits, woven garments and jackets',
+    pitch: 'Garment sourcing and export: knits, woven garments and jackets for men and kids, made through partner factories in India.',
+    icon: 'fabric',
+  },
+];
+
 // Product ranges inside each division, in the order the division site shows them.
 const P = (sector, group, list) =>
   list.map(([id, name, extra = {}]) => ({ id, sector, group, name, ...extra }));
